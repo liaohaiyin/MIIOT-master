@@ -1,0 +1,27 @@
+﻿<Application x:Class="MIIOT.DiagManager.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cv="clr-namespace:MIIOT.DiagManager.Converters"
+             xmlns:local="clr-namespace:MIIOT.DiagManager"
+             ShutdownMode="OnExplicitShutdown">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style TargetType="{x:Type TextElement }">
+                <Setter Property="FontFamily" Value="微软雅黑"/>
+            </Style>
+            <Style TargetType="{x:Type TextBlock }">
+                <Setter Property="FontFamily" Value="微软雅黑"/>
+            </Style>
+            <cv:DateTimeStringConverter x:Key="DateShortCv" DateTimeFormat="yyyy-MM"></cv:DateTimeStringConverter>
+            <cv:DateTimeStringConverter x:Key="DateStringCv" DateTimeFormat="yyyy-MM-dd"></cv:DateTimeStringConverter>
+            <cv:DateTimeStringConverter x:Key="DateTimeStringCv" DateTimeFormat="yyyy-MM-dd HH:mm:ss"></cv:DateTimeStringConverter>
+            <cv:EqualValueConverter x:Key="EqualValueCv"></cv:EqualValueConverter>
+            <cv:FilterFieldColorConverter x:Key="FilterFieldColorCv"></cv:FilterFieldColorConverter>
+            <cv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityCv"></cv:BooleanToVisibilityConverter>
+            <cv:PrintToBooleanConverter x:Key="PrintToBooleanCv"></cv:PrintToBooleanConverter>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/MIIOT.UI;Component/Themes/Default.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

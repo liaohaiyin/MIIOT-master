@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="MIIOT.View.DebugView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MIIOT.View"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+            <md:Card Grid.Row="1" Background="{DynamicResource MaterialDesignBackground}"  Margin="5">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel>
+                    <Expander HorizontalAlignment="Stretch" Header="柜体操作" IsExpanded="True"  >
+                      
+                        <StackPanel>
+                            <Border Background="{DynamicResource MaterialDesignDivider}" Height="1" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
+                            <WrapPanel Orientation="Horizontal" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="5">
+                            <ComboBox x:Name="chkchest" Width="90" Height="40" FontSize="15" SelectedIndex="1"  Margin="10" VerticalContentAlignment="Center">
+                                <ComboBoxItem Tag="FF">柜号：所有</ComboBoxItem>
+                                <ComboBoxItem Tag="01">柜号：1</ComboBoxItem>
+                                <ComboBoxItem Tag="02">柜号：2</ComboBoxItem>
+                                <ComboBoxItem Tag="03">柜号：3</ComboBoxItem>
+                                <ComboBoxItem Tag="04">柜号：4</ComboBoxItem>
+                                <ComboBoxItem Tag="05">柜号：5</ComboBoxItem>
+                                <ComboBoxItem Tag="06">柜号：6</ComboBoxItem>
+                                <ComboBoxItem Tag="07">柜号：7</ComboBoxItem>
+                                <ComboBoxItem Tag="08">柜号：8</ComboBoxItem>
+                            </ComboBox>
+                            <ComboBox x:Name="chkFrame" Width="90" Height="40"  SelectedIndex="1"  FontSize="15" Margin="10" VerticalContentAlignment="Center">
+                                <ComboBoxItem Tag="FF">层号：所有</ComboBoxItem>
+                                <ComboBoxItem Tag="01">层号：1</ComboBoxItem>
+                                <ComboBoxItem Tag="02">层号：2</ComboBoxItem>
+                                <ComboBoxItem Tag="03">层号：3</ComboBoxItem>
+                                <ComboBoxItem Tag="04">层号：4</ComboBoxItem>
+                                <ComboBoxItem Tag="05">层号：5</ComboBoxItem>
+                                <ComboBoxItem Tag="06">层号：6</ComboBoxItem>
+                                <ComboBoxItem Tag="07">层号：7</ComboBoxItem>
+                                <ComboBoxItem Tag="08">层号：8</ComboBoxItem>
+                            </ComboBox>
+                            <ComboBox x:Name="chkdrawer" Width="90" Height="40"  SelectedIndex="1"  FontSize="15" Margin="10" VerticalContentAlignment="Center">
+                                <ComboBoxItem Tag="FF">槽号：所有</ComboBoxItem>
+                                <ComboBoxItem Tag="01">槽号：1</ComboBoxItem>
+                                <ComboBoxItem Tag="02">槽号：2</ComboBoxItem>
+                                <ComboBoxItem Tag="03">槽号：3</ComboBoxItem>
+                                <ComboBoxItem Tag="04">槽号：4</ComboBoxItem>
+                                <ComboBoxItem Tag="05">槽号：5</ComboBoxItem>
+                                <ComboBoxItem Tag="06">槽号：6</ComboBoxItem>
+                                <ComboBoxItem Tag="07">槽号：7</ComboBoxItem>
+                                <ComboBoxItem Tag="08">槽号：8</ComboBoxItem>
+                            </ComboBox>
+                            <ComboBox x:Name="cmbLED" Width="90" Height="40"  SelectedIndex="0"   FontSize="15" Margin="10" VerticalContentAlignment="Center">
+                                <ComboBoxItem Tag="0">灭灯</ComboBoxItem>
+                                <ComboBoxItem Tag="1">红灯</ComboBoxItem>
+                                <ComboBoxItem Tag="2">黄灯</ComboBoxItem>
+                                <ComboBoxItem Tag="3">蓝灯</ComboBoxItem>
+                                <ComboBoxItem Tag="4">RGB</ComboBoxItem>
+                            </ComboBox>
+                            <Button Click="btnLEDLight_click">LED灯亮</Button>
+                            <Button Click="btnOpenDoor_click">开  门</Button>
+                            <Button Click="btnBLight_click" ToolTip="上方输入亮度值">亮背光灯</Button>
+                            <Button Click="btnPowerOn_click">层板上电</Button>
+                            <Button Click="btnGateStatus_click">查询门状态</Button>
+                            </WrapPanel>
+
+                            <WrapPanel Orientation="Horizontal" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="5">
+                                <TextBlock VerticalAlignment="Center">名称：</TextBlock>
+                            <TextBox VerticalContentAlignment="Center" Width="90" Margin=" 0 10 0 10" FontSize="15" x:Name="txtname">一次性套管穿刺器</TextBox>
+                            <TextBox VerticalContentAlignment="Center" Width="50" Margin=" 2 10 10 10" FontSize="15" Visibility="Collapsed" x:Name="txtnamecolor">FF0000</TextBox>
+                            <TextBlock VerticalAlignment="Center">规格：</TextBlock>
+                            <TextBox VerticalContentAlignment="Center" Width="90" Margin=" 0 10 0 10" FontSize="15" x:Name="txtspec">A型</TextBox>
+                            <TextBox VerticalContentAlignment="Center" Width="50" Margin=" 2 10 10 10" FontSize="15" Visibility="Collapsed" x:Name="txtspeccolor">00FF00</TextBox>
+                            <TextBlock VerticalAlignment="Center">数量：</TextBlock>
+                            <TextBox VerticalContentAlignment="Center" Width="50" Margin=" 0 10 0 10" FontSize="15" x:Name="txtqty">12</TextBox>
+                            <TextBox VerticalContentAlignment="Center" Width="50" Margin=" 2 10 10 10" FontSize="15" Visibility="Collapsed" x:Name="txtqtycolor">0000FF</TextBox>
+                            <TextBlock VerticalAlignment="Center">别名：</TextBlock>
+                            <TextBox VerticalContentAlignment="Center" Width="50" Margin=" 0 10 0 10" FontSize="15" x:Name="txtNickName">硬镜</TextBox>
+                            <TextBlock VerticalAlignment="Center">厂家：</TextBlock>
+                            <TextBox VerticalContentAlignment="Center" Width="50" Margin=" 0 10 0 10" FontSize="15" x:Name="txtFactory">广州白云山</TextBox>
+                            <TextBlock VerticalAlignment="Center">编码：</TextBlock>
+                            <TextBox VerticalContentAlignment="Center" Width="50" Margin=" 0 10 0 10" FontSize="15" x:Name="txtCode">YJD</TextBox>
+                            <TextBlock VerticalAlignment="Center">单位：</TextBlock>
+                            <TextBox VerticalContentAlignment="Center" Width="50" Margin=" 0 10 0 10" FontSize="15" x:Name="txtUnit">套</TextBox>
+                            <Button Click="btnLCD_Click">LCD显示</Button>
+                            </WrapPanel>
+                        </StackPanel>
+                    
+                    </Expander>
+                    <Expander HorizontalAlignment="Stretch"  Header="RFID扫码" IsExpanded="True">
+                        <WrapPanel Orientation="Horizontal" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="5">
+                            <Button Click="RFIDStart_Click">开始扫码</Button>
+                            <Button Click="RFIDStop_Click">结束扫码</Button>
+                            </WrapPanel>
+                    </Expander>
+                    <Border Background="{DynamicResource MaterialDesignDivider}" Height="1" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
+                    <Expander HorizontalAlignment="Stretch" Header="指静脉" IsExpanded="True">
+                        <WrapPanel Orientation="Horizontal" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="5">
+                            <Button Click="btnChkFinger_click">验证手指</Button>
+                            <TextBox VerticalContentAlignment="Center" Width="90" Margin="10" FontSize="15" x:Name="txtFingerID"></TextBox>
+                            <Button Click="btnRegFinger_click" ToolTip="左边输入手指ID">注册手指</Button>
+                            <Button Click="btnDelFinger_click" ToolTip="左边输入手指ID">删除手指</Button>
+                            <Button Click="btnDelAll_click">删除所有</Button>
+                            <Button Click="btnFingerList_click">查询手指列表</Button>
+                            <Button Click="btnUploadTemp_click">上传模板</Button>
+                            <Button Click="btnDownLoadTemp_click">下载模板</Button>
+                        </WrapPanel>
+                    </Expander>
+                    <Border Background="{DynamicResource MaterialDesignDivider}" Height="1" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
+                    <Expander HorizontalAlignment="Stretch" Header="HID扫码" IsExpanded="True">
+                        <WrapPanel Orientation="Horizontal" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="5">
+                            <Button Click="btnTrgScan_click">触发读码</Button>
+                            <Button Click="btnScaning_click">长亮读码</Button>
+                            <Button Click="btnScanEnd_click">结束读码</Button>
+                        </WrapPanel>
+                    </Expander>
+                </StackPanel>
+                </ScrollViewer>
+            </md:Card>
+        <GroupBox Grid.Column="1" Header="日志">
+            <RichTextBox x:Name="txtRichText" SelectionChanged="txtRichText_SelectionChanged" BorderThickness="0"></RichTextBox>
+        </GroupBox>
+    </Grid>
+</UserControl>

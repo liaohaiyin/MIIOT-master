@@ -1,0 +1,101 @@
+﻿<controls:MetroWindow x:Class="MIIOT.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MIIOT"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls" 
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" 
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="医智联智能驱动" Height="768" Width="1104" ShowTitleBar="False" ShowMinButton="False" ShowMaxRestoreButton="False" ShowCloseButton="False" WindowStyle="None" >
+    <controls:MetroWindow.Resources>
+
+        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </controls:MetroWindow.Resources>
+    <md:DialogHost x:Name="MainDialogHost" Identifier="RootDialog" >
+        <md:DrawerHost IsRightDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}" BorderBrush="LightGray" BorderThickness="1">
+            <md:DrawerHost.RightDrawerContent >
+                <DockPanel MinWidth="150">
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                                        DockPanel.Dock="Top"
+                                        HorizontalAlignment="Right" 
+                                  Margin="10 20 25 0"
+                                  Height="40"
+                                  Width="40"
+                                        IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+                    <ListBox x:Name="ItemListBox" SelectedIndex="0" SelectionChanged="ItemListBoxSelecte_changed"  PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp" ItemsSource="{Binding Items}" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="viewmodel:ContorllerItem">
+                                <TextBlock Text="{Binding Name}" FontSize="20" Height="50" Margin="20 0" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </md:DrawerHost.RightDrawerContent>
+            <DockPanel Background="{DynamicResource MaterialDesignPaper}">
+                <!--顶部标题栏-->
+                <md:ColorZone DockPanel.Dock="Top"   Height="80" Padding="0 0 0 0"  MouseDown="ColorZone_MouseDown"  md:ShadowAssist.ShadowDepth="Depth2">
+                    <DockPanel Height="80">
+                        <StackPanel x:Name="btnMenus" Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                            <Button x:Name="btnHome" Visibility="Visible" Background="#eb6800" Margin="10 0 20 0" Height="60" Width="100" FontSize="20" FontWeight="Heavy" BorderThickness="0" Click="btnHome_Click">调  试</Button>
+                            <Button x:Name="btnSet" Visibility="Collapsed" Background="#eb6800" Margin="10 0 20 0" Height="60" Width="100" FontSize="20" FontWeight="Heavy" BorderThickness="0" Click="btnSet_Click">设 置</Button>
+                            <Button Background="#607d8b" Visibility="Visible" Margin="10 0 20 0" Height="60" Width="100" FontSize="20" FontWeight="Heavy" Click="btnClose_click">退 出</Button>
+                            <ToggleButton  Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False" 
+                                        x:Name="MenuToggleButton"
+                                      ToolTip="功能目录"
+                              Height="50"
+                              Width="50" Margin="0 0 10 0"
+                              HorizontalAlignment="Right"  />
+                        </StackPanel>
+                    </DockPanel>
+                </md:ColorZone>
+                <!--底部状态栏-->
+                <md:ColorZone   DockPanel.Dock="Bottom"  Height="30" Padding="0 0 0 0" md:ShadowAssist.ShadowDepth="Depth2">
+                    <md:ColorZone.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="25"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Foreground" Value="Gray"/>
+                        </Style>
+                    </md:ColorZone.Resources>
+                    <Grid>
+
+                        <StackPanel x:Name="StatusPanel" Orientation="Horizontal" >
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Right">
+                            <TextBlock FontSize="17" Margin="5" x:Name="txtClock">2017-05-28 10:56:23</TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </md:ColorZone>
+                <!--左边菜单栏-->
+                <md:ColorZone Visibility="Visible"  DockPanel.Dock="Left" Height="{Binding ElementName=grid, Path=ActualHeight}"  Width="0"   md:ShadowAssist.ShadowDepth="Depth2">
+                    <md:ColorZone.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="25"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Style>
+                    </md:ColorZone.Resources>
+
+                </md:ColorZone>
+
+                <Grid x:Name="grid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer 
+                                  HorizontalScrollBarVisibility="{Binding ElementName=ItemListBox, Path=SelectedItem.HorizontalScrollBarVisibilityRequirement}"
+                                  VerticalScrollBarVisibility="{Binding ElementName=ItemListBox, Path=SelectedItem.VerticalScrollBarVisibilityRequirement}" 
+                                  Padding="{Binding ElementName=ItemListBox, Path=SelectedItem.MarginRequirement}">
+                        <ContentControl Content="{Binding ElementName=ItemListBox, Path=SelectedItem.Content}" />
+                    </ScrollViewer>
+                </Grid>
+
+            </DockPanel>
+        </md:DrawerHost>
+    </md:DialogHost>
+</controls:MetroWindow>

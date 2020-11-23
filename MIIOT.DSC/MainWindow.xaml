@@ -1,0 +1,101 @@
+﻿<controls:MetroWindow x:Class="MIIOT.Clinical.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MIIOT.Clinical"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls" 
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13" 
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MaterialDesignPaper}"					  
+        GlowBrush="{DynamicResource AccentColorBrush}"	
+        mc:Ignorable="d" BorderBrush="Gray" BorderThickness="1" Width="1280" Height="800" 
+                
+                        >
+    <!--WindowStyle="None" ShowCloseButton="False" ShowDialogsOverTitleBar="False"
+                      ShowIconOnTitleBar="False" ShowMaxRestoreButton="False" WindowState="Maximized" 
+                      ShowMinButton="False" ShowTitleBar="False" ShowSystemMenuOnRightClick="False"-->
+    <md:DialogHost x:Name="MainDialogHost" Identifier="RootDialog">
+        <md:DrawerHost IsRightDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+            <!--右侧弹出框-->
+            <md:DrawerHost.RightDrawerContent >
+                <DockPanel MinWidth="150">
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                                        DockPanel.Dock="Top"
+                                        HorizontalAlignment="Right" 
+                                  Margin="10 30 25 0"
+                                  Height="40"
+                                  Width="40"
+                                        IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+                    <ListBox SelectedIndex="0" SelectionChanged="ItemListBoxSelecte_changed"  PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp" ItemsSource="{Binding Items}" x:Name="ItemListBox">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="viewmodel:ContorllerItem">
+                                <TextBlock Text="{Binding Name}" FontSize="20" Margin="32 0 32 0" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </md:DrawerHost.RightDrawerContent>
+            <DockPanel Background="{DynamicResource MaterialDesignPaper}">
+                <md:ColorZone   DockPanel.Dock="Top"  Height="80" Padding="0 0 0 0" md:ShadowAssist.ShadowDepth="Depth2">
+                    <md:ColorZone.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="20"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontWeight" Value="Heavy"/>
+                        </Style>
+                    </md:ColorZone.Resources>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                            <materialDesign:Badged Badge="3" HorizontalAlignment="Center" Margin="0 10 20 0"  BadgeColorZoneMode="Inverted">
+                                <Button Click="Button_Click" Height="60">操作</Button>
+                            </materialDesign:Badged>
+                            <materialDesign:Badged HorizontalAlignment="Center" Margin="0 10 20 0"  BadgeColorZoneMode="Inverted">
+                                <Button Click="Button_Click_1" Height="60" >设置</Button>
+                            </materialDesign:Badged>
+                        </StackPanel>
+                    </Grid>
+                </md:ColorZone>
+                <md:ColorZone  Opacity="0.8" DockPanel.Dock="Bottom"  Height="30" Padding="0 0 0 0" md:ShadowAssist.ShadowDepth="Depth2">
+                    <md:ColorZone.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="25"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Style>
+                    </md:ColorZone.Resources>
+                    <Grid>
+                    </Grid>
+                </md:ColorZone>
+                <Grid x:Name="grid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="0"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer 
+                                  HorizontalScrollBarVisibility="{Binding ElementName=ItemListBox, Path=SelectedItem.HorizontalScrollBarVisibilityRequirement}"
+                                  VerticalScrollBarVisibility="{Binding ElementName=ItemListBox, Path=SelectedItem.VerticalScrollBarVisibilityRequirement}" 
+                                  Padding="{Binding ElementName=ItemListBox, Path=SelectedItem.MarginRequirement}">
+                        <ContentControl Content="{Binding ElementName=ItemListBox, Path=SelectedItem.Content}" />
+                    </ScrollViewer>
+                    <md:Snackbar MessageQueue="{md:MessageQueue}" x:Name="MainSnackbar"/>
+                </Grid>
+            </DockPanel>
+        </md:DrawerHost>
+    </md:DialogHost>
+</controls:MetroWindow>

@@ -1,0 +1,54 @@
+﻿<nb:NbWindow x:Class="MIIOT.UI.ControlEx.NbFormWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:nb="clr-namespace:MIIOT.UI.Controls"
+        mc:Ignorable="d"
+        Title="NbInputWindow" Height="450" Width="450" MaxWidth="1024" MaxHeight="768" WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="{DynamicResource Nb.Dominant.Background}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="32"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Label x:Name="WinTitle" Foreground="{DynamicResource Nb.Dominant.Foreground2}" Margin="5,0,0,0" Content="标题"></Label>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <nb:NbCloseSysButton Foreground="{DynamicResource Nb.Dominant.Foreground2}"></nb:NbCloseSysButton>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Background="{DynamicResource Nb.Auxiliary.Background}">
+            <ContentControl x:Name="WinContent"></ContentControl>
+        </Grid>
+
+        <Border Grid.Row="2" BorderBrush="{DynamicResource Nb.Auxiliary.BorderBrush}" Height="1" BorderThickness="1" Margin="5,0,5,0"></Border>
+
+        <Grid Grid.Row="3" Background="{DynamicResource Nb.Auxiliary.Background}">
+            <Border BorderThickness="0" BorderBrush="{DynamicResource Nb.Auxiliary.BorderBrush}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <nb:NbButton x:Name="CancelButton" Margin="0,7,10,10" MinWidth="64" MinHeight="32" Content="取消" Click="CancelButton_Click" Style="{DynamicResource NormalButtonStyle}"></nb:NbButton>
+                    <nb:NbButton x:Name="NoButton" Margin="0,7,10,10" MinWidth="64" MinHeight="32" Content="否" Click="NoButton_Click" Style="{DynamicResource NormalButtonStyle}"></nb:NbButton>
+                    <nb:NbButton x:Name="YesButton" Margin="0,7,10,10" MinWidth="64" MinHeight="32" Content="是" Click="YesButton_Click" Style="{DynamicResource DefaultButtonStyle}"></nb:NbButton>
+                    <nb:NbButton x:Name="OkButton" Margin="0,7,10,10" MinWidth="64" MinHeight="32" Content="确定" Click="OkButton_Click" Style="{DynamicResource DefaultButtonStyle}"></nb:NbButton>
+                    <nb:NbButton x:Name="CloseButton" Margin="0,7,10,10" MinWidth="64" MinHeight="32" Content="关闭" Click="CloseButton_Click" Style="{DynamicResource WarnButtonStyle}"></nb:NbButton>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Border x:Name="ErrorTipBack" Grid.Row="1" Grid.RowSpan="3" Visibility="Collapsed" Background="#000000" Opacity="0.3" MouseDown="ErrorTipBack_MouseDown">
+
+        </Border>
+        <Border CornerRadius="5" x:Name="ErrorTip" Grid.Row="1" Grid.RowSpan="3" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#000000" Opacity="0.8" MouseDown="ErrorTipBack_MouseDown">
+            <TextBlock x:Name="ErrorTipText" DockPanel.Dock="Bottom" TextWrapping="Wrap" TextAlignment="Center" MinHeight="32" Padding="8" FontSize="14" Foreground="#FF0000" Text="21333333"></TextBlock>
+        </Border>
+    </Grid>
+</nb:NbWindow>

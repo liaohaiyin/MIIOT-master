@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="MIIOT.ORCart.View.LogListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MIIOT.ORCart.View" xmlns:controls="clr-namespace:MIIOT.ORCart.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        
+        <controls:EqualConverter x:Key="EqualConverter"/>
+        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}" x:Key="RadioStyleButton">
+            <Style.Triggers>
+                <DataTrigger Value="true">
+                    <DataTrigger.Binding>
+                        <MultiBinding Converter="{StaticResource EqualConverter}">
+                            <Binding RelativeSource="{RelativeSource Self}" Path="Tag"></Binding>
+                            <Binding RelativeSource="{RelativeSource Self}" Path="CommandParameter"></Binding>
+                        </MultiBinding>
+                    </DataTrigger.Binding>
+                    <Setter Property="Background" Value="#4BEF9E"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        
+        <StackPanel>
+            <Button Command="{x:Static local:DataCommands.Switch }"  CommandParameter="1" Tag="{Binding LeftEntranceSelected.Tag}" Style="{DynamicResource RadioStyleButton}"/>
+            <Button Command="{x:Static local:DataCommands.Switch }" Margin="0 10" CommandParameter="2" Tag="{Binding LeftEntranceSelected.Tag}" Style="{DynamicResource RadioStyleButton}"/>
+            <Button Command="{x:Static local:DataCommands.Switch }"  CommandParameter="3" Tag="{Binding LeftEntranceSelected.Tag}" Style="{DynamicResource RadioStyleButton}"/>
+        </StackPanel>
+        <!--<TabControl>
+            <TabItem x:Name="txt1" Header="人脸识别"></TabItem>
+            <TabItem x:Name="txt2" Header="柜体操作"></TabItem>
+            <TabItem x:Name="txt3" Header="RFID识别"></TabItem>
+        </TabControl>-->
+    </Grid>
+</UserControl>

@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="MIIOT.Trical.Controls.MenuEx"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MIIOT.Trical.Controls"
+             mc:Ignorable="d"    >
+    <UserControl.Resources>
+        <local:CheckBackgroundConvert x:Key="CheckBackgroundConvert"/>
+        <local:ForegroundConvert x:Key="ForegroundConvert"/>
+        <local:AcceptConvert x:Key="AcceptConvert"/>
+    </UserControl.Resources>
+    <Border Padding="40" Background="{Binding IsChecked,Converter={StaticResource CheckBackgroundConvert}}" BorderBrush="Gray" BorderThickness="1" >
+    <Grid HorizontalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+            <Image x:Name="img" Source="{Binding IsChecked,Converter={StaticResource AcceptConvert}}" Visibility="Visible" Width="60"></Image>
+            <Image  Source="/MIIOT.Trical;component/Images/Accept.png" Width="60" Visibility="Collapsed"></Image>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="40" Foreground="{Binding IsChecked,Converter={StaticResource ForegroundConvert}}" Text="{Binding Text}"></TextBlock>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D6DB3E5A-FC38-4907-BFB0-B21BE8F85D42}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>MIIOT.DiagManager.Core</RootNamespace>
+    <AssemblyName>MIIOT.DiagManager.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppRuntime.cs" />
+    <Compile Include="Comm\Extend.cs" />
+    <Compile Include="Comm\GlobalConst.cs" />
+    <Compile Include="Comm\GlobalParameters.cs" />
+    <Compile Include="Comm\GlobalVm.cs" />
+    <Compile Include="Comm\ModuleItem.cs" />
+    <Compile Include="Comm\ResourceManager.cs" />
+    <Compile Include="Comm\XamlResourceItem.cs" />
+    <Compile Include="Helper\DriverObserver.cs" />
+    <Compile Include="Helper\EnterKeyHelpers.cs" />
+    <Compile Include="Helper\ImageHelper.cs" />
+    <Compile Include="Helper\PasswordHelper.cs" />
+    <Compile Include="Helper\PrintHelper.cs" />
+    <Compile Include="Helper\RFIDPrinter.cs" />
+    <Compile Include="LoginContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MIIOT.Comm\MIIOT.Comm.csproj">
+      <Project>{711E5221-E902-4852-BAC3-4F1A1B03D82E}</Project>
+      <Name>MIIOT.Comm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MIIOT.Data.Service\MIIOT.Data.Service.csproj">
+      <Project>{C967CD7E-180F-453D-A9FF-9DD68C889A84}</Project>
+      <Name>MIIOT.Data.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MIIOT.Data\MIIOT.Data.csproj">
+      <Project>{E01B3FEB-7ED2-47CB-8594-BCE18D843AFE}</Project>
+      <Name>MIIOT.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MIIOT.DiagManager.Model\MIIOT.DiagManager.Model.csproj">
+      <Project>{3E53F13D-FBC7-4185-B4C0-3C5EF8AC2A7D}</Project>
+      <Name>MIIOT.DiagManager.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MIIOT.UI\MIIOT.UI.csproj">
+      <Project>{0C26D415-C67D-4BB2-A55E-9E7FAD6B9A7E}</Project>
+      <Name>MIIOT.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

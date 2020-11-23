@@ -1,0 +1,143 @@
+﻿<Controls:MetroWindow  x:Class="MIIOT.ORCart.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MIIOT.ORCart"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+        xmlns:controls="clr-namespace:MIIOT.Controls;assembly=MIIOT.Controls" xmlns:mainview="clr-namespace:MIIOT.ORCart.MainView"
+                       mc:Ignorable="d" FontFamily="Microsoft YaHei" WindowStyle="None"  BorderBrush="{StaticResource PrimaryForegroudBrush}" 
+        BorderThickness="1" WindowState="Maximized" Foreground="{StaticResource PrimaryForegroudBrush}" ShowTitleBar="False" 
+        ShowMinButton="False" ShowMaxRestoreButton="False" ShowCloseButton="False">
+    <Controls:MetroWindow.Resources>
+        <controls:TrueVisible x:Key="TrueVisible"/>
+        <controls:FalseVisible x:Key="FalseVisible"/>
+
+    </Controls:MetroWindow.Resources>
+    <TabControl x:Name="tab">
+        <TabItem Visibility="Collapsed">
+            <Border>
+                <Border.Background>
+                    <ImageBrush ImageSource="Images/LoginBac.png" Stretch="UniformToFill">
+                    </ImageBrush>
+                </Border.Background>
+                <Grid  Opacity="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="20"/>
+                            <Setter Property="Foreground" Value="{StaticResource PrimaryForegroudBrush}"/>
+                        </Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="FontSize" Value="20"/>
+                            <Setter Property="Foreground" Value="{StaticResource PrimaryForegroudBrush}"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Image Source="Images/logo.png" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="20"  Height="135" Width="240" Stretch="Fill" HorizontalAlignment="Center" ></Image>
+
+                    <TextBlock  Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20">SPD地址：</TextBlock>
+                    <Border  Margin="10"  Grid.Row="2" Grid.Column="1" BorderBrush="{StaticResource PrimaryForegroudBrush}"  BorderThickness="1" VerticalAlignment="Center" Padding="3">
+                        <TextBox x:Name="txtspdHost" Width="300" HorizontalAlignment="Center"   BorderThickness="0" Height="35" VerticalAlignment="Center"  FontSize="20"  materialDesign:TextFieldAssist.DecorationVisibility="Hidden" ></TextBox>
+                    </Border>
+
+                    <TextBlock  Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20">数据库地址：</TextBlock>
+                    <Border  Margin="10"  Grid.Row="3" Grid.Column="1" BorderBrush="{StaticResource PrimaryForegroudBrush}"  BorderThickness="1" VerticalAlignment="Center" Padding="3">
+                        <TextBox x:Name="txtDBHost" Width="300" HorizontalAlignment="Center"   BorderThickness="0" Height="35" VerticalAlignment="Center"  FontSize="20"  materialDesign:TextFieldAssist.DecorationVisibility="Hidden" ></TextBox>
+                    </Border>
+
+                    <TextBlock  Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20">数据库名称：</TextBlock>
+                    <Border  Margin="10"  Grid.Row="4" Grid.Column="1" BorderBrush="{StaticResource PrimaryForegroudBrush}"  BorderThickness="1" VerticalAlignment="Center" Padding="3">
+                        <TextBox x:Name="txtDBName" Width="300" HorizontalAlignment="Center"   BorderThickness="0" Height="35" VerticalAlignment="Center"  FontSize="20"  materialDesign:TextFieldAssist.DecorationVisibility="Hidden" ></TextBox>
+                    </Border>
+
+                    <TextBlock  Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20">数据库用户名：</TextBlock>
+                    <Border  Margin="10"  Grid.Row="5" Grid.Column="1" BorderBrush="{StaticResource PrimaryForegroudBrush}"  BorderThickness="1" VerticalAlignment="Center" Padding="3">
+                        <TextBox x:Name="txtDBuserName" Width="300" HorizontalAlignment="Center"   BorderThickness="0" Height="35" VerticalAlignment="Center"  FontSize="20"  materialDesign:TextFieldAssist.DecorationVisibility="Hidden" ></TextBox>
+                    </Border>
+
+                    <TextBlock  Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20">数据库密码：</TextBlock>
+                    <Border  Margin="10"  Grid.Row="6" Grid.Column="1" BorderBrush="{StaticResource PrimaryForegroudBrush}"  BorderThickness="1" VerticalAlignment="Center" Padding="3">
+                        <PasswordBox  Grid.Row="5" Grid.Column="1" x:Name="txtDBPassword"  Foreground="{StaticResource PrimaryForegroudBrush}" BorderBrush="{StaticResource PrimaryForegroudBrush}" Style="{StaticResource MetroPasswordBox}" BorderThickness="0" Width="300"  Password=""   FontSize="20" VerticalContentAlignment="Center"  materialDesign:HintAssist.Hint="密码" ></PasswordBox>
+                    </Border>
+                    <Button Margin="10 20" Grid.Row="7" Grid.ColumnSpan="2" FontSize="20" HorizontalAlignment="Center" Height="50" Width="300" Click="btnTestConnected_Click">保   存</Button>
+                    <TextBlock x:Name="txtmsg"  Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center"></TextBlock>
+                    
+                </Grid>
+            </Border>
+        </TabItem>
+        <TabItem Visibility="Collapsed">
+            <Border Opacity="1" Margin="0 0 0 0" x:Name="bor" Visibility="Visible" >
+                <Border.Background>
+                    <ImageBrush ImageSource="Images/LoginBac.png" Stretch="UniformToFill">
+                    </ImageBrush>
+                </Border.Background>
+                <Border.Effect>
+                    <BlurEffect Radius="0"/>
+                </Border.Effect>
+
+                <Grid >
+                    <materialDesign:PackIcon Kind="Close" Height="30" Grid.ColumnSpan="4" Margin="10" Width="30" Foreground="{StaticResource PrimaryForegroudBrush}" Background="Transparent" MouseLeftButtonDown="btnClose_Click" VerticalAlignment="Top" HorizontalAlignment="Right" />
+                    <materialDesign:PackIcon Kind="Settings" Height="30" Grid.ColumnSpan="4" Margin="10" Width="30" Foreground="{StaticResource PrimaryForegroudBrush}" Background="Transparent" MouseLeftButtonDown="btnSetting_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                    <Viewbox>
+                        <Grid Margin="160" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Image Source="Images/logo.png" Grid.ColumnSpan="4" Margin="20"  Height="135" Width="240" Stretch="Fill" HorizontalAlignment="Center" ></Image>
+                            <TextBlock Margin="10" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" FontSize="25" Foreground="{StaticResource PrimaryHueMidBrush}" Text="密码登录" />
+                            <TextBlock Margin="10" Grid.Row="1" Grid.Column="1"   Foreground="#a8a8ad" FontSize="25" Text="人脸识别"/>
+                            <ComboBox x:Name="txtUserName" Padding="30 0 0 0" Style="{StaticResource VirtualisedMetroComboBox}" Height="50" Width="400" Grid.Row="3" Grid.ColumnSpan="4" Margin="30"  FontSize="20" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="用户名" IsEditable="True"  >
+
+                            </ComboBox>
+                            <TextBlock Grid.Row="3" FontSize="20" Margin="40 30 0 30" VerticalAlignment="Center" HorizontalAlignment="Left" Width="auto">账号</TextBlock>
+                            <PasswordBox  x:Name="txtPassword" Padding="60 0 0 0" Grid.ColumnSpan="4" Style="{StaticResource MetroPasswordBox}" Height="50" Width="400" KeyDown="txtPassword_KeyDown" Password=""  Grid.Row="4" Margin="30 0 30 30" FontSize="20" VerticalContentAlignment="Center"  materialDesign:HintAssist.Hint="密码" ></PasswordBox>
+
+                            <TextBlock Grid.Row="4" FontSize="20" Margin="40 0 0 30" Width="auto" VerticalAlignment="Center" HorizontalAlignment="Left" >密码</TextBlock>
+                            <Button Grid.Row="5"  Grid.ColumnSpan="4" Margin="30 10" Click="btnLogin_Click" BorderThickness="0" Height="50" Width="400">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="Images/btnLogi.png" Stretch="Uniform"></ImageBrush>
+                                </Button.Background>
+                                <Grid>
+                                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" Visibility="Collapsed" IsIndeterminate="True" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Visibility="{Binding IsLoging,Converter={StaticResource FalseVisible}}" ></TextBlock>
+                                </Grid>
+                            </Button>
+                            <TextBlock x:Name="txtErr" Grid.Row="6"  Grid.ColumnSpan="4"  Visibility="Hidden" Foreground="Red" HorizontalAlignment="Center">用户名或密码不正确，请验证后再试</TextBlock>
+                        </Grid>
+
+                    </Viewbox>
+                </Grid>
+            </Border>
+        </TabItem>
+    </TabControl>
+
+
+</Controls:MetroWindow>

@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="MIIOT.ORCart.MainView.RefundView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MIIOT.ORCart.MainView"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:controls="clr-namespace:MIIOT.Controls;assembly=MIIOT.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <controls:NullRedConverter x:Key="NullRedConverter"/>
+    </UserControl.Resources>
+    <Grid Margin="15 0 15 15" Background="White">
+
+        <CheckBox x:Name="DtlTag" Visibility="Collapsed"></CheckBox>
+        <materialDesign:DialogHost x:Name="MainDialogHost" Grid.Row="1" >
+            <materialDesign:DrawerHost IsRightDrawerOpen="{Binding ElementName=DtlTag, Path=IsChecked}">
+                <materialDesign:DrawerHost.RightDrawerContent >
+                    <Border x:Name="borRight" >
+                    </Border>
+                </materialDesign:DrawerHost.RightDrawerContent>
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal"  Margin="5">
+                        <TextBlock VerticalAlignment="Center" FontSize="18">退库库房：</TextBlock>
+                        <Border BorderBrush="{StaticResource PrimaryForegroudBrush}" Height="50" BorderThickness="1" VerticalAlignment="Center" Padding="3">
+                            <ComboBox x:Name="txtstore" SelectedIndex="0" Width="200" VerticalAlignment="Center"  FontSize="18" SelectedValuePath="deststorehouseid" DisplayMemberPath="deststorehousename" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"></ComboBox>
+                        </Border>
+                            <Button   Grid.Column="2" Margin="10 5" Width="120"  HorizontalAlignment="Left"  FontSize="18" Height="50" Click="btnAddGoods_Click" >添加商品</Button>
+                        <Button   Grid.Column="2" Margin="10 5" Width="120"  HorizontalAlignment="Left"  FontSize="18" Height="50" Click="btnRefund_Click">确认退库</Button>
+                    </StackPanel>
+                    <DataGrid  Grid.Row="2" x:Name="grid" Grid.ColumnSpan="6"  ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                  ItemsSource="{Binding Refunds,Mode=TwoWay}"  ScrollViewer.PanningMode="Both"
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="4" LoadingRow="grid_LoadingRow" UnloadingRow="grid_UnloadingRow"
+                  CanUserAddRows="False" IsReadOnly="True"  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  SelectedValue="{Binding SelectGoods}" 
+                  AutoGenerateColumns="False" >
+                        <DataGrid.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource  MaterialDesignDataGridCell}">
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryForegroudBrush}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsNew}" Value="null">
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.CellStyle>
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                                <Setter Property="Background" Value="{StaticResource PrimaryHueMidBrush}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Height" Value="60"/>
+                                <Setter Property="FontSize" Value="17"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
+                        <DataGrid.Resources>
+                            <DataTemplate x:Key="qty">
+                                <Border BorderBrush="{StaticResource PrimaryForegroudBrush}" BorderThickness="1">
+                                    <TextBox Tag="{Binding}" Text="{Binding qty,Mode=TwoWay}" IsReadOnly="True"  PreviewMouseDown="TextBox_PreviewMouseDown" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                                </Border>
+                            </DataTemplate>
+                            <DataTemplate x:Key="combReason">
+                                <ComboBox x:Name="comb" Tag="{Binding}" BorderThickness="1" Background="#fafafa" BorderBrush="{Binding ElementName=comb, Path=Text,Converter={StaticResource NullRedConverter}}" DisplayMemberPath="dicttext" SelectedValuePath="dictvalue" ItemsSource="{Binding Reasons}" SelectionChanged="ComboBox_SelectionChanged" VerticalAlignment="Center"  FontSize="20" Height="auto"/>
+                            </DataTemplate>
+                            <DataTemplate x:Key="btnDelete">
+                                <Button Margin="3" Tag="{Binding}"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Foreground="{StaticResource PrimaryForegroudBrush}"  Background="Transparent" Click="Button_Click">
+                                  删除
+                                </Button>
+                            </DataTemplate>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header=" 序号" Width="50" MinWidth="10" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontSize="20" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type DataGridRow}}, Path=Header}"  VerticalAlignment="Center" ></TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Binding="{Binding goods_no}" ElementStyle="{StaticResource datagridCell}" CanUserSort="True" Header="商品编码"  Width="*" />
+                            <DataGridTextColumn Binding="{Binding goods_name}" ElementStyle="{StaticResource datagridCell}" CanUserSort="True" Header="商品名称"  Width="*" />
+                            <DataGridTextColumn Binding="{Binding goods_spec}" ElementStyle="{StaticResource datagridCell}" CanUserSort="True" Header="商品规格"  Width="*" />
+                            <DataGridTextColumn Binding="{Binding factory_name}" ElementStyle="{StaticResource datagridCell}" CanUserSort="True" Header="生产厂家"  Width="*" />
+                            <DataGridTextColumn Binding="{Binding unit}" ElementStyle="{StaticResource datagridCell}" CanUserSort="True" Header="单位"  Width="*" />
+                            <DataGridTextColumn Binding="{Binding batch_no}" ElementStyle="{StaticResource datagridCell}" CanUserSort="True" Header="生产批号"  Width="*" />
+
+                            <DataGridTemplateColumn CellTemplate="{StaticResource qty}" Header="退库数量"  Width="*" />
+                            <DataGridTemplateColumn CellTemplate="{StaticResource combReason}" Header="退库原因"  Width="*" />
+                            <DataGridTemplateColumn CellTemplate="{StaticResource btnDelete}" Header="操作" Width="*"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
+            </materialDesign:DrawerHost>
+        </materialDesign:DialogHost>
+    </Grid>
+</UserControl>

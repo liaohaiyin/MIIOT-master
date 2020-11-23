@@ -1,0 +1,114 @@
+{
+
+  "短信通知开关": "0",
+  "//监控柜体ID": "Key:上位机主柜ID,Value:短信显示名称",
+  "MacCodes": [
+    {
+      "MacID": "1",
+      "MacName": "外科楼三楼冰箱"
+    },
+    {
+      "MacID": "2",
+      "MacName": "**病区2323冰箱"
+    },
+    {
+      "MacID": "3",
+      "MacName": "**病区冰箱"
+    }
+  ],
+
+  "//通知方式": "1：通知，0：不通知；分别为微信，短信，电话(100表示只进行微信通知,111为全部通知)",
+  "SendMode": "111",
+
+  "//安全温度区间": "逗号分隔(最小,最大)",
+  "HMGap": "4,11",
+
+  "//短信通知列表": "逗号分隔",
+  "SMSPhones": "13928459050",
+
+  "//语音通知列表": "逗号分隔",
+  "Phones": "13928459050",
+
+  "//微信通知列表": "逗号分隔",
+  "WeChats": "siazon",
+
+  "//tcp服务端口": "仅限数字",
+  "TCPServerPort": "4000",
+
+  "//短信报警配置以上即可": "",
+
+  "UserNameCache": "admin",
+  "//webSocket连接串与配置机器名称": "",
+  "WSSocket": "ws://61.140.16.205:2458/work-station-dsc/websocket",
+  "WSSocketClientName": "testname",
+
+
+  "//复核台读卡器串口": "",
+  "CardReaderPortName": "COM6",
+
+  "//复核台串口": "",
+  "PlatformReaderPortName": "COM4",
+  "RackCom": "COM3",
+  "//本库ID和Name": "",
+  "WarehouseID": "12",
+  "WarehouseName": "试剂中心库",
+
+  "//医院名称": "",
+  "HospitalName": "xx**x人民医院",
+
+  "MasterName": "M1",
+  "SlaveName": "S1",
+
+  "//登录超时": "",
+  "LoginTimeOut": "20",
+
+  "//HttpHost": "",
+  "//Host": "http://61.140.16.205:2464",
+  "Host": "http://61.140.16.205:2458",
+
+  "//Router": "",
+  "登录_Post": "/work-station-dsc/login/web",
+  "取得用户信息_Get": "/work-station-dsc/sysUser/loginUserInfo",
+  "用户绑定": "/work-station-dsc/sysUserBinding",
+  "刷卡登录_Post": "/work-station-dsc/login/bindingInfo",
+
+  "感应标签_Post": "/work-station-dsc/reactionLabel/getSinglecodes",
+  "重打标签_Post": "/work-station-dsc/replayLabel",
+
+  "库房列表_Post": "/work-station-dsc/storehouse/list",
+  "机构_Get": "/work-station-dsc/pubOrgan",
+  "科室列表查询_Get": "/work-station-dsc/office/list",
+  "库房列表查询_Get": "/work-station-dsc/officeStorehouse/listStorehouseByOfficeId",
+  "获取退库退货的原因_Get": "/work-station-dsc/reason/getReason",
+
+  "查询送货单列表_Get": "/work-station-dsc/deliveryCommonNote",
+
+  "查询验收单列表_Post": "/work-station-dsc/acceptCommon/getMainInfo",
+  "查询验收单明细_Get": "/work-station-dsc/acceptCommon/getDtlInfo",
+  "查询验收单列表和详细_Get": "/work-station-dsc/acceptCommon",
+  "验收确认取消接口_Post": "/work-station-dsc/acceptCommon/updateStatus",
+  "验收复核单_Post": "/work-station-dsc/acceptCommon/sureAgain",
+
+  "申领单号列表查询_Get": "/work-station-dsc/apply/listSourceNo",
+  "根据申领单号查询明细记录_Get": "/work-station-dsc/applyWithDtls/getByApplySourceNo",
+  "申领复核_Post": "/work-station-dsc/apply/check",
+  "申领手工复核_Post": "/work-station-dsc/manualApply/confirm",
+
+  "退库单列表_Post": "/work-station-dsc/applyBack/getMainInfo",
+  "退库单_Post": "/work-station-dsc/applyBack",
+  "退库复核_Post": "/work-station-dsc/applyBack/sureAgain",
+  "退库手工单复核_Post": "/work-station-dsc/applyBack/addHandworkBack",
+
+  "退货单列表_Post": "/work-station-dsc/refund/listSourceNo",
+  "退货单id查询退货明细_Get": "/work-station-dsc/refundWithDtls/getByRefundSourceNo",
+  "退货手工复核单_Post": "/work-station-dsc/refund/manualCheck",
+  "退货复核单_Post": "/work-station-dsc/refund/check",
+
+  "查询上架信息_Post": "/work-station-dsc/rackCommon",
+  "上架确认_Post": "/work-station-dsc/rackCommon/sureRack",
+
+  "领用_Post": "/work-station-dsc/receiveConsuming",
+
+  "查询拣选信息_Post": "/work-station-dsc/pickWithDtls/getByPickNo",
+  "拣选完成_Post": "/work-station-dsc/pickWithDtls/getByPickNo"
+}

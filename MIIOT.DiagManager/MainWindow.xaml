@@ -1,0 +1,162 @@
+﻿<nb:NbWindow x:Class="MIIOT.DiagManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:nb="clr-namespace:MIIOT.UI.Controls;assembly=MIIOT.UI"
+        xmlns:core="clr-namespace:MIIOT.DiagManager.Core;assembly=MIIOT.DiagManager.Core"
+        xmlns:vm="clr-namespace:MIIOT.DiagManager.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="800"
+        Width="1280"
+        MinHeight="600"
+        MinWidth="1024"
+        CaptionHeight="96"
+        WindowState="Maximized"
+        Loaded="NbWindow_Loaded"
+        Closing="NbWindow_Closing"
+        WindowStartupLocation="CenterScreen">
+    <nb:NbWindow.DataContext>
+        <vm:MainWindowVm></vm:MainWindowVm>
+    </nb:NbWindow.DataContext>
+
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="135"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0">            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid
+                    Margin="5 3 3 5"
+                    Width="130"
+                    Height="130"
+                    Grid.Column="0">
+                    <Grid.Background>
+                        <ImageBrush
+                        ImageSource="Resources\logo.ico"
+                        Stretch="Fill"/>
+                    </Grid.Background>
+                </Grid>
+                <StackPanel
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal">
+                    <Label
+                    FontSize="{DynamicResource LableFontSize42}"
+                    FontWeight="Bold"
+                    HorizontalContentAlignment="Center"
+                    Content="体外诊断工作站"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,16,5">
+                    <ToggleButton x:Name="UserInfoBtn" MinWidth="120" Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True"
+                                  Content="Admin">
+                        <ToggleButton.Template>
+                            <ControlTemplate TargetType="ToggleButton">
+                                <Border x:Name="tbBorder" CornerRadius="3" Background="{TemplateBinding Background}">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Viewbox Grid.Row="0" Margin="5">
+                                            <Path Data="{DynamicResource Icon-User}" Fill="{DynamicResource Nb.Login.LoginColor}" Stretch="Fill"></Path>
+                                        </Viewbox>
+                                        <Label Grid.Row="1" FontWeight="Bold" Foreground="{DynamicResource Nb.Nav2.Foreground}" Content="{TemplateBinding Content}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="tbBorder" Property="Background" Value="{DynamicResource Nb.MouseOver.Background1}"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="tbBorder" Property="Background" Value="{DynamicResource Nb.Pressed.Background1}"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter TargetName="tbBorder" Property="Background" Value="{DynamicResource Nb.Pressed.Background1}"></Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </ToggleButton.Template>
+                    </ToggleButton>
+                    <nb:NbExitSysButton ToolTip="退出"
+                                     Icon="{DynamicResource Icon-Exit}"
+                                     Content="退出"
+                                     Cursor="Hand" CornerRadius="3"/>
+                </StackPanel>
+            </Grid>
+        </Border>        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Background="{DynamicResource Nb.Nav.Background}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="52"></RowDefinition>
+                    </Grid.RowDefinitions>                    
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="MenuView" Width="220" Orientation="Vertical" VerticalAlignment="Top">
+                        </StackPanel>
+                    </ScrollViewer>
+                    <!--<Border Grid.Row="2" BorderBrush="{DynamicResource Nb.Nav.BorderBrush}" BorderThickness="0,0.1,0,0">
+                        <nb:NbNavMenuItem x:Name="SystemMain" Icon="{DynamicResource Icon-Settings2}" Content="系统维护"
+                                      CheckedBrush="{DynamicResource Nb.Nav.SelectedBrush}"
+                                    Height="52" Width="220"></nb:NbNavMenuItem>
+                    </Border>
+                    <Popup PlacementTarget="{Binding ElementName=SystemMain}" Placement="Top" HorizontalOffset="10" VerticalOffset="-5" Width="Auto"
+                       StaysOpen="False" IsOpen="{Binding ElementName=SystemMain, Path=IsChecked}">
+                        <Border BorderThickness="1" BorderBrush="{DynamicResource Nb.Auxiliary.BorderBrush}" Width="Auto" CornerRadius="3">
+                            <StackPanel Background="{DynamicResource Nb.Popup.Background}" Orientation="Vertical" HorizontalAlignment="Stretch">
+                                <nb:NbSysButton Width="Auto" Padding="10,0,10,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                                            Content="系统设置"></nb:NbSysButton>
+                                <nb:NbSysButton Width="Auto" Padding="10,0,10,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
+                                            Content="数据备份"></nb:NbSysButton>
+                                <nb:NbSysButton Width="Auto" Padding="10,0,10,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
+                                            Content="从备份还原数据库"></nb:NbSysButton>
+                                <nb:NbSysButton Width="Auto" Padding="10,0,10,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
+                                            Content="检测更新"></nb:NbSysButton>
+                            </StackPanel>
+                        </Border>
+                    </Popup>-->
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="1" Background="{DynamicResource Nb.Auxiliary.Background}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>               
+                <Popup x:Name="UserInfoPopup" Grid.Row="0" StaysOpen="False" AllowsTransparency="True" 
+                   Placement="Bottom" MinWidth="120" VerticalOffset="5"
+                   PlacementTarget="{Binding ElementName=UserInfoBtn}"
+                   IsOpen="{Binding ElementName=UserInfoBtn, Path=IsChecked}">
+                    <Border BorderThickness="1" BorderBrush="{DynamicResource Nb.Auxiliary.BorderBrush}" CornerRadius="3">
+                        <StackPanel Background="{DynamicResource Nb.Popup.Background}" Orientation="Vertical" HorizontalAlignment="Stretch">
+                            <nb:NbSysButton Width="Auto" Padding="10,0,10,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
+                                        Content="修改密码" Command="{Binding ChangePwd}"></nb:NbSysButton>
+                            <nb:NbSysButton Width="Auto" Padding="10,0,10,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
+                                        Content="注销" Command="{Binding Logout}"></nb:NbSysButton>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+                <Frame x:Name="PageContainer" Grid.Row="1" NavigationUIVisibility="Hidden" Navigating="PageContainer_Navigating" Background="{DynamicResource Nb.FrameControl.Background}">
+                    <Frame.BitmapEffect>
+                        <DropShadowBitmapEffect Color="Gray" Direction="90" ShadowDepth="0.5" Opacity="0.5" Softness="0.5" />
+                    </Frame.BitmapEffect>
+                </Frame>
+            </Grid>
+        </Grid>       
+    </Grid>
+</nb:NbWindow>

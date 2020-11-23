@@ -1,0 +1,309 @@
+﻿<controls:MetroWindow x:Class="MIIOT.Trical.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MIIOT.Trical"   
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:controls1="clr-namespace:MIIOT.Controls;assembly=MIIOT.Controls"
+        xmlns:converter="clr-namespace:MIIOT.Trical.Converter"
+        mc:Ignorable="d"  WindowState="Maximized" Foreground="{StaticResource PrimaryForegroudBrush}" 
+        Title="MainWindow" Width="1176" Height="710"  ShowTitleBar="False" ShowMinButton="False" ShowMaxRestoreButton="False" ShowCloseButton="False">
+    <Grid >
+        <Grid.Resources>
+            <controls1:TrueVisible x:Key="TrueVisible"/>
+            <controls1:FalseVisible x:Key="FalseVisible"/>
+        </Grid.Resources>
+        <md:DialogHost x:Name="MainDialogHost" Identifier="RootDialog">
+            <md:DrawerHost IsRightDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+                <md:DrawerHost.RightDrawerContent >
+                    <DockPanel MinWidth="150">
+                        <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                                        DockPanel.Dock="Top" Foreground="{StaticResource PrimaryHueMidBrush}"
+                                        HorizontalAlignment="Right" 
+                                  Margin="10 30 25 0"
+                                  Height="40"
+                                  Width="40"
+                                        IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+                        <ListBox SelectedIndex="0" Visibility="Visible" SelectionChanged="ItemListBoxSelecte_changed"  PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp" ItemsSource="{Binding Items}" x:Name="ItemListBox">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="viewmodel:ContorllerItem">
+                                    <Label Content="{Binding Name}" FontSize="20" Foreground="{StaticResource PrimaryForegroudBrush}" Height="auto" Margin="32 0 32 0" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </md:DrawerHost.RightDrawerContent>
+                <DockPanel Background="{DynamicResource MaterialDesignPaper}">
+
+                    <md:ColorZone DockPanel.Dock="Top"   Height="80" Padding="0 0 0 0"  MouseDown="ColorZone_MouseDown"  md:ShadowAssist.ShadowDepth="Depth2">
+                        <Grid Height="80">
+                            <Image Source="Images/logoyi.png" HorizontalAlignment="Left" Margin="10" ></Image>
+
+                            <StackPanel x:Name="btnMenus" Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                                <!--<StackPanel Margin="0 0 20 0">-->
+                                <Button Height="60" Width="60" DockPanel.Dock="Top" Margin="0 0 20 0"  BorderThickness="0" Click="btnLogout_Click">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="Images/u8.png"></ImageBrush>
+                                    </Button.Background>
+                                </Button>
+                                <!--<TextBlock HorizontalAlignment="Center">登出</TextBlock>
+                                </StackPanel>
+                                <StackPanel Margin="0 0 20 0">-->
+                                <Button Height="60" Width="60" Margin="0 0 20 0"  BorderThickness="0" Click="btnClose_Click">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="Images/u4.png"></ImageBrush>
+                                    </Button.Background>
+                                </Button>
+                                <!--<TextBlock HorizontalAlignment="Center">关闭</TextBlock>
+                                </StackPanel>-->
+
+                                <ToggleButton  Style="{StaticResource MaterialDesignHamburgerToggleButton}"  IsChecked="False"
+                                        x:Name="MenuToggleButton"
+                                      ToolTip="功能目录"
+                              Height="50" Foreground="{StaticResource PrimaryHueMidBrush}" 
+                              Width="50" Margin="0 0 10 0"
+                              HorizontalAlignment="Right"  />
+
+                            </StackPanel>
+                        </Grid>
+                    </md:ColorZone>
+                    <!--<md:ColorZone  Background="{StaticResource DefaultBrush}"  DockPanel.Dock="Bottom"  Height="30" Padding="0 0 0 0" md:ShadowAssist.ShadowDepth="Depth2">
+                    <md:ColorZone.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="25"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Style>
+                    </md:ColorZone.Resources>
+                    <Grid>
+
+                        <StackPanel x:Name="StatusPanel" Orientation="Horizontal" Grid.Row="1">
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Right">
+                            <TextBlock FontSize="17" Margin="5" x:Name="txtClock">2017-05-28 10:56:23</TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </md:ColorZone>-->
+
+                    <md:ColorZone Visibility="Visible"  DockPanel.Dock="Left" Height="{Binding ElementName=grid, Path=ActualHeight}"  Width="180"  Padding="0 0 0 0" md:ShadowAssist.ShadowDepth="Depth2">
+                        <md:ColorZone.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="25"></Setter>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Style>
+                        </md:ColorZone.Resources>
+                        <Grid>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <StackPanel x:Name="Menu" >
+                                    <Border x:Name="borAccept" Tag="0" Background="{StaticResource PrimaryHueMidBrush}" MouseLeftButtonDown="borMenu_Click">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30 50">
+                                            <Image x:Name="imgAccept" Source="Images/Accept.png" Visibility="Visible" Width="30"></Image>
+                                            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="20" Foreground="White" Text="验收"></TextBlock>
+                                        </StackPanel>
+                                    </Border>
+                                    <controls1:SimplePanel Height="1" Background="LightGray"></controls1:SimplePanel>
+                                    <Border x:Name="borPull" Tag="1" Background="White" MouseLeftButtonDown="borMenu_Click">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30 50">
+                                            <Image  x:Name="imgPull" Source="Images/Pull.png" Visibility="Visible" Width="30"></Image>
+                                            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource PrimaryForegroudBrush}" Text="申领"></TextBlock>
+                                        </StackPanel>
+                                    </Border>
+                                    <controls1:SimplePanel Height="1" Background="LightGray"></controls1:SimplePanel>
+                                    <Border x:Name="borCancellingStock" Background="White" Tag="2" MouseLeftButtonDown="borMenu_Click">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30 50">
+                                            <Image x:Name="imgCancellingStock" Source="Images/CancellingStock.png" Visibility="Visible" Width="30"></Image>
+                                            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource PrimaryForegroudBrush}" Text="退库"></TextBlock>
+                                        </StackPanel>
+                                    </Border>
+                                    <controls1:SimplePanel Height="1" Background="LightGray"></controls1:SimplePanel>
+                                    <Border x:Name="borRefund" Tag="3" Background="White" MouseLeftButtonDown="borMenu_Click">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30 50">
+                                            <Image x:Name="imgRefund" Source="Images/Refund.png" Visibility="Visible" Width="30"></Image>
+                                            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource PrimaryForegroudBrush}" Text="退货"></TextBlock>
+                                        </StackPanel>
+                                    </Border>
+                                    <controls1:SimplePanel Height="1" Background="LightGray"></controls1:SimplePanel>
+                                    <Border x:Name="borPrintLabel" Tag="4" Background="White" MouseLeftButtonDown="borMenu_Click">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30 50">
+                                            <Image x:Name="imgPrintLabel"  Source="Images/PrintLabel.png" Visibility="Visible" Width="30"></Image>
+                                            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource PrimaryForegroudBrush}" Text="重打标签"></TextBlock>
+                                        </StackPanel>
+                                    </Border>
+                                    <controls1:SimplePanel Height="1" Background="LightGray"></controls1:SimplePanel>
+                                    <Border x:Name="borReceive" Tag="5" Background="White" MouseLeftButtonDown="borMenu_Click" Visibility="Collapsed">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30 50" >
+                                            <Image  x:Name="imgReceive"  Source="Images/Receive.png" Visibility="Visible" Width="30"></Image>
+                                            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource PrimaryForegroudBrush}" Text="领用"></TextBlock>
+                                        </StackPanel>
+                                    </Border>
+                                    <controls1:SimplePanel Height="1" Background="LightGray"></controls1:SimplePanel>
+                                   
+                                </StackPanel>
+                            </ScrollViewer>
+
+                        </Grid>
+                    </md:ColorZone>
+                    <!--日志-->
+                    <md:ColorZone Visibility="Collapsed"  DockPanel.Dock="Right" Height="{Binding ElementName=grid, Path=ActualHeight}"  Width="180"  Padding="0 0 0 0" md:ShadowAssist.ShadowDepth="Depth2">
+                        <md:ColorZone.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="25"></Setter>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Style>
+                        </md:ColorZone.Resources>
+                        <TextBox x:Name="txtLog" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" TextWrapping="Wrap"></TextBox>
+                    </md:ColorZone>
+                    <Grid x:Name="grid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <ScrollViewer 
+                                  HorizontalScrollBarVisibility="{Binding ElementName=ItemListBox, Path=SelectedItem.HorizontalScrollBarVisibilityRequirement}"
+                                  VerticalScrollBarVisibility="{Binding ElementName=ItemListBox, Path=SelectedItem.VerticalScrollBarVisibilityRequirement}" 
+                                  Padding="{Binding ElementName=ItemListBox, Path=SelectedItem.MarginRequirement}">
+                            <ContentControl Content="{Binding ElementName=ItemListBox, Path=SelectedItem.Content}" />
+                        </ScrollViewer>
+                    </Grid>
+
+                </DockPanel>
+            </md:DrawerHost>
+        </md:DialogHost>
+        <md:Snackbar MessageQueue="{md:MessageQueue}" x:Name="MainSnackbar" Background="{StaticResource PrimaryHueMidBrush}"/>
+        <Border Opacity="1" Margin="0 0 0 0" x:Name="bor" Visibility="Visible" MouseDown="ColorZone_MouseDown">
+            <Border.Background>
+                <ImageBrush ImageSource="Images/LoginBac.png" Stretch="UniformToFill">
+                </ImageBrush>
+            </Border.Background>
+            <Border.Effect>
+                <BlurEffect Radius="0"/>
+            </Border.Effect>
+
+            <Grid >
+                <materialDesign:PackIcon Kind="Close" Height="30" Grid.ColumnSpan="4" Margin="10" Width="30" Foreground="Gray" Background="Transparent" MouseLeftButtonDown="PackIcon_MouseLeftButtonDown" VerticalAlignment="Top" HorizontalAlignment="Right" />
+                <Viewbox>
+                    <Grid Margin="150" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition/>
+                            <ColumnDefinition />
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Image Source="Images/logoyi.png" Grid.ColumnSpan="4" Margin="20" Height="135" Width="240" Stretch="Fill" HorizontalAlignment="Center" ></Image>
+
+                        <TextBlock Margin="10" Grid.Row="1" FontSize="25" Foreground="{StaticResource PrimaryHueMidBrush}" Text="密码登录"/>
+                        <TextBlock Margin="10" Grid.Row="1" Grid.Column="1" Foreground="#a8a8ad" FontSize="25" Text="指静脉登录"/>
+                        <TextBlock Margin="10" Grid.Row="1" Grid.Column="2" Foreground="#a8a8ad" FontSize="25" Text="刷卡登录"/>
+                        <TextBlock Margin="10" Grid.Row="1" Grid.Column="3" Foreground="#a8a8ad" FontSize="25" Text="人脸识别"/>
+                        <Border Grid.Row="2" Background="{StaticResource PrimaryHueMidBrush}" Height="2"/>
+                        <Border Grid.Row="2" Grid.Column="1" Background="#a8a8ad" Height="2"/>
+                        <Border Grid.Row="2" Grid.Column="2" Background="#a8a8ad" Height="2"/>
+                        <Border Grid.Row="2" Grid.Column="3" Background="#a8a8ad" Height="2"/>
+                        <ComboBox x:Name="txtUserName" Padding="30 0 0 0" Style="{StaticResource     VirtualisedMetroComboBox}" Height="50" Width="400" Grid.Row="3" Grid.ColumnSpan="4" Margin="30"  FontSize="20" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="用户名" IsEditable="True"  >
+
+                        </ComboBox>
+
+                        <TextBlock Grid.Row="3" FontSize="20" Margin="60 30 0 30" VerticalAlignment="Center">账号</TextBlock>
+                        <PasswordBox x:Name="txtPassword" Padding="60 0 0 0" Grid.ColumnSpan="4" Style="{StaticResource MetroPasswordBox}" Height="50" Width="400" KeyDown="txtPassword_KeyDown" Password="koala"  Grid.Row="4" Margin="30 0 30 30" FontSize="20" VerticalContentAlignment="Center"  materialDesign:HintAssist.Hint="密码" ></PasswordBox>
+
+                        <TextBlock Grid.Row="4" FontSize="20" Margin="60 0 0 30" VerticalAlignment="Center">密码</TextBlock>
+                        <Button Grid.Row="5"  Grid.ColumnSpan="4" Margin="30 10" Click="btnLogin_Click" BorderThickness="0" Height="50" Width="400">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Images/btnLogi.png" Stretch="Uniform"></ImageBrush>
+                            </Button.Background>
+                            <Grid>
+                                <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"                     
+                     Value="0" Visibility="{Binding IsLoging,Converter={StaticResource TrueVisible}}"
+                     IsIndeterminate="True"
+                     Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Visibility="{Binding IsLoging,Converter={StaticResource FalseVisible}}" ></TextBlock>
+                            </Grid>
+                        </Button>
+                        <TextBlock x:Name="txtErr" Grid.Row="6" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Center" Grid.ColumnSpan="4">用户名或密码不正确，请验证后再试</TextBlock>
+                    </Grid>
+
+                </Viewbox>
+            </Grid>
+        </Border>
+        <!--<Border Opacity="1" Margin="0 0 0 0" x:Name="bor" Visibility="Visible" MouseDown="ColorZone_MouseDown">
+            <Border.Background>
+                <ImageBrush ImageSource="Images/LoginBack.png" Stretch="UniformToFill">
+                </ImageBrush>
+            </Border.Background>
+            <Border.Effect>
+                <BlurEffect Radius="0"/>
+            </Border.Effect>
+            <Grid>
+                <md:Card UniformCornerRadius="10" md:ShadowAssist.ShadowDepth="Depth5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Grid  Width="630" Height="390">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Border>
+                            <Border.Background>
+                                <ImageBrush ImageSource="Images/loginLeft.png"></ImageBrush>
+                            </Border.Background>
+                        </Border>
+                        <Border Grid.Column="1" Background="White">
+                            <Grid Margin="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Images/logo.png" Grid.ColumnSpan="2" HorizontalAlignment="Left"></Image>
+                                <materialDesign:PackIcon Grid.Row="2"  Margin="10 0 0 0" Kind="Account" Height="30" Width="30" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <materialDesign:PackIcon Grid.Row="3" Margin="10 0 0 0"  Height="25" Width="25" Kind="Lock" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <ComboBox x:Name="txtUserName" Grid.Column="1" Grid.Row="2" Margin="5 5 10 5"  FontSize="20" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="用户名" IsEditable="True"  >
+
+                                </ComboBox>
+                                <PasswordBox x:Name="txtPassword" KeyDown="txtPassword_KeyDown" Password="koala" Grid.Column="1" Grid.Row="3" Margin="5 5 10 5" FontSize="20" VerticalContentAlignment="Center"  materialDesign:HintAssist.Hint="密码" ></PasswordBox>
+                                <Button Grid.Row="4"  Grid.ColumnSpan="2" Margin="30 10" Click="btnLogin_Click" BorderThickness="0" >
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="Images/btnLogin.png"></ImageBrush>
+                                    </Button.Background>
+                                    <Grid>
+                                        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"                     
+                     Value="0" Visibility="{Binding IsLoging,Converter={StaticResource TrueVisible}}"
+                     IsIndeterminate="True"
+                     Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <TextBlock Visibility="{Binding IsLoging,Converter={StaticResource FalseVisible}}" >登  录</TextBlock>
+                                    </Grid>
+                                </Button>
+                                <TextBlock x:Name="txtErr" Grid.Row="5" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Center" Grid.ColumnSpan="2">用户名或密码不正确，请验证后再试</TextBlock>
+                                <TextBlock HorizontalAlignment="Center" Grid.Row="6" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Foreground="Gray" FontSize="10" Margin="0 0 0 0">SPD耗材中心库 0725-4868536    孙六六 18174708627</TextBlock>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </md:Card>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 20">1996-2022 Copyright Reserved 版权所有@以大供应链</TextBlock>
+            </Grid>
+        </Border>-->
+    </Grid>
+</controls:MetroWindow>

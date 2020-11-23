@@ -1,0 +1,323 @@
+﻿<nb:NbPage x:Class="MIIOT.DiagManager.Pages.WorkAcceptInfoPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:MIIOT.DiagManager.Pages"
+      xmlns:nb="clr-namespace:MIIOT.UI.Controls;assembly=MIIOT.UI"      
+      xmlns:nbex="clr-namespace:MIIOT.UI.ControlEx;assembly=MIIOT.UI"
+      xmlns:vm="clr-namespace:MIIOT.DiagManager.ViewModels"
+      xmlns:core="clr-namespace:MIIOT.DiagManager.Core;assembly=MIIOT.DiagManager.Core"
+      mc:Ignorable="d"
+      Title="WorkAcceptInfoPage"
+      d:DesignHeight="450"
+      d:DesignWidth="1024"
+      IsWaiting="{Binding IsWaiting}"
+      TipText="{Binding TipText}">
+    <!--<nb:NbPage.DataContext>
+        <vm:WorkAcceptInfoPageVm></vm:WorkAcceptInfoPageVm>
+    </nb:NbPage.DataContext>-->   
+
+    <Grid Background="{DynamicResource Nb.Auxiliary.Background}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition MinHeight="120" Height="auto"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="48"/>
+        </Grid.RowDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            Margin="10 10 0 0"
+            Orientation="Horizontal">
+            <nb:NbTextBox
+                x:Name="txtsearch"
+                Style="{DynamicResource ScanTextBlockStyle}"
+                Margin="0 2 0 1" 
+                Placeholder="请扫描或输入单号"
+                Text="{Binding SearchOrderNo}"
+                core:EnterKeyHelpers.EnterKeyCommand="{Binding SearchCommand}"
+                core:EnterKeyHelpers.EnterKeyCommandParam="{Binding Path=SearchOrderNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label
+                Content="{Binding Path=SearchNoHint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                VerticalContentAlignment="Center"
+                FontSize="{DynamicResource LableFontSize24}"
+                Foreground="{DynamicResource Nb.TipText.Foreground}"/>
+        </StackPanel>
+        <Border 
+            Margin="5 0 5 0"
+            Grid.Row="1"
+            BorderBrush="{DynamicResource Nb.Auxiliary.BorderBrush}"
+            BorderThickness="0 0 0 1">
+            <ScrollViewer
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Disabled">
+                <StackPanel
+                    x:Name="ToolNavMenu"
+                    Orientation="Horizontal">                    
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+        <Border
+            Grid.Row="2"
+            BorderBrush="{DynamicResource Nb.Auxiliary.BorderBrush}"
+            BorderThickness="0.9"
+            Padding="5 5 5 3"
+            Opacity="0.8"
+            Margin="5"
+            CornerRadius="5">            
+            <Grid>                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid
+                    Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        Grid.Column="0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+                        <Label
+                            Content="医院名称："
+                            FontWeight="Bold"
+                            FontSize="18"
+                            Style="{DynamicResource BoldLabelStyle}"/>
+                        <Label
+                            FontWeight="Bold"
+                            FontSize="18"
+                            Content="{Binding organ_name}"
+                            Style="{DynamicResource BoldLabelStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+                        <Label
+                            Content="供应商名称："
+                            FontWeight="Bold"
+                            FontSize="18"
+                            Style="{DynamicResource BoldLabelStyle}"/>
+                        <Label
+                            Content="{Binding supply_name}"
+                            FontWeight="Bold"
+                            FontSize="18"
+                            Style="{DynamicResource BoldLabelStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Column="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+                        <Label
+                            Content="库房名称："
+                            FontWeight="Bold"
+                            FontSize="18"
+                            Style="{DynamicResource BoldLabelStyle}"/>
+                        <Label
+                            Content="{Binding storehouse_name}"
+                            FontWeight="Bold"
+                            FontSize="18"
+                            Style="{DynamicResource BoldLabelStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Column="3"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+                        <Label
+                            Content="验收人："
+                            FontWeight="Bold"
+                            FontSize="18"
+                            Style="{DynamicResource BoldLabelStyle}"/>
+                        <Label
+                            FontWeight="Bold"
+                            FontSize="18"
+                            Content="{Binding accept_person_name}"
+                            Style="{DynamicResource BoldLabelStyle}"/>
+                    </StackPanel>
+                </Grid>
+                <Grid
+                    Grid.Row="1">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label
+                            IsEnabled="{Binding HasVerify}"
+                            Width="30"
+                            Height="30"
+                            Style="{DynamicResource CircleLabelStyle}"/>
+                        <Label
+                            Content="待验收"
+                            Margin="10 0 0 0"
+                            VerticalContentAlignment="Center"
+                            FontWeight="Bold"
+                            FontSize="{DynamicResource LableFontSize18}"/>
+                        <Label
+                            Content="━━━━━━━━━━"
+                            Foreground="{DynamicResource Nb.Home.Icon}"
+                            VerticalContentAlignment="Center"
+                            FontWeight="Bold"
+                            FontSize="{DynamicResource LableFontSize18}"/>
+                        <Label
+                            IsEnabled="{Binding HasVerify}"
+                            Width="30"
+                            Height="30"
+                            Style="{DynamicResource CircleLabelStyle}"/>
+                        <Label
+                            Content="已验收"
+                            Margin="10 0 0 0"
+                            VerticalContentAlignment="Center"
+                            FontWeight="Bold"
+                            FontSize="{DynamicResource LableFontSize18}"/>
+                        <Label
+                            Content="━━━━━━━━━━"
+                            Foreground="{DynamicResource Nb.Home.Icon}"
+                            VerticalContentAlignment="Center"
+                            FontWeight="Bold"
+                            FontSize="{DynamicResource LableFontSize18}"/>
+                        <Label
+                            IsEnabled="{Binding HasOverReceipt}"
+                            Width="30"
+                            Height="30"
+                            Style="{DynamicResource CircleLabelStyle}"/>
+                        <Label
+                            Content="复核确认"
+                            VerticalContentAlignment="Center"
+                            FontWeight="Bold"
+                            FontSize="{DynamicResource LableFontSize18}"/>
+                    </StackPanel>
+                </Grid>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Width="auto"
+                    Grid.Row="2"                    
+                    Height="40">
+                    <nb:NbButton
+                        Content="打印标签"
+                        Icon="{DynamicResource Icon-Export}"
+                        Style="{DynamicResource BarToolButtonStyle}"
+                        Command="{Binding PrintLabel}"
+                        Height="40"
+                        VerticalAlignment="Top">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource PrintToBooleanCv}" >
+                                <Binding ElementName="dataAccept" Path="DataContext.Items" />
+                                <Binding Path="labelItems" />
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </nb:NbButton>
+                    <nb:NbButton Content="验证确认" Icon="{DynamicResource Icon-Checked}" Style="{DynamicResource BarToolButtonStyle}" Command="{Binding VerifyResult}"></nb:NbButton>                    
+                    <nb:NbButton Content="复核确认" Icon="{DynamicResource Icon-Reset}" Style="{DynamicResource BarToolButtonStyle}"></nb:NbButton>
+                    <nb:NbButton Content="拒收" Icon="{DynamicResource Icon-Warn}" Style="{DynamicResource BarToolButtonStyle}"></nb:NbButton>
+                    <nb:NbButton Content="温度控制" Icon="{DynamicResource Icon-Settings2}" Style="{DynamicResource BarToolButtonStyle}"></nb:NbButton>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <DataGrid   
+            Grid.Row="3"                
+            MinColumnWidth="108"
+            Margin="5 5 0 0"
+            Style="{DynamicResource NbDataGrid}"
+            ItemsSource="{Binding Items}"
+            x:Name="dataAccept">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding goods_no}"
+                    Header="商品编码" />                
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding goods_name}"
+                    Header="商品名称" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding goods_spec}"
+                    Header="商品规格" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding goods_factory_name}"
+                    Header="生产厂家" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding goods_unit}"
+                    Header="单位" />
+                <DataGridTemplateColumn
+                    Width="*"
+                    Header="验收数量" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <nb:NbSlider Margin="10 0 0 0" Height="30" Value="{Binding Path=delivery_qty , Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}" Maximum="{x:Static core:GlobalParameters.MaxValue}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>                   
+                </DataGridTemplateColumn>
+                <!--复核数量与验收数量不等时，复核数量标红显示-->
+                <DataGridTextColumn
+                    Width="*"
+                    Header="复核数量"
+                    Binding="{Binding check_qty}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource EqualValueCv}">
+                                        <Binding Path="delivery_qty"/>
+                                        <Binding Path="check_qty"/>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding price}"
+                    Header="价格" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding lot_no}"
+                    Header="批号" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding pprod_date, Converter={StaticResource DateStringCv}}"
+                    Header="生产日期" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding pvalid_date, Converter={StaticResource DateStringCv}}"
+                    Header="有效期" />
+                <!--<DataGridTemplateColumn
+                    Width="*"
+                    Header="绑定父控件的属性" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DataContext.ProductName, RelativeSource={RelativeSource AncestorType=ContentControl}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+            </DataGrid.Columns>
+            <!--转换判断整行字体颜色设置-->
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Foreground" >
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource FilterFieldColorCv}">
+                                <Binding ElementName="dataAccept" Path="DataContext.Items"/>
+                                <Binding Path="source_no"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+        <nbex:NbPageBar Grid.Row="4" PageNo="{Binding PageNo}" PageSize="{Binding PageSize}" TotalPages="{Binding TotalPages}" TotalItems="{Binding TotalItems}" Command="{Binding GoPage}"></nbex:NbPageBar>
+    </Grid>
+</nb:NbPage>

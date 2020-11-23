@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="MIIOT.UI.ControlEx.NbPageBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MIIOT.UI.ControlEx"
+             xmlns:nb="clr-namespace:MIIOT.UI.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="48" d:DesignWidth="800">
+    <Grid Background="{DynamicResource Nb.Auxiliary.Background}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Margin="8,0,2,0" Content="第"></Label>
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:NbPageBar}}, Path=PageNo}"></Label>
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Margin="2,0,0,0" Content="页"></Label>
+
+            <Border BorderBrush="{DynamicResource Nb.Auxiliary.BorderBrush}" BorderThickness="1" Width="1" Margin="8"></Border>
+
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Margin="8,0,2,0" Content="共"></Label>
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:NbPageBar}}, Path=TotalPages}"></Label>
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Margin="2,0,0,0" Content="页"></Label>
+
+            <Border BorderBrush="{DynamicResource Nb.Auxiliary.BorderBrush}" BorderThickness="1" Width="1" Margin="8"></Border>
+
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Margin="8,0,2,0" Content="共"></Label>
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:NbPageBar}}, Path=TotalItems}"></Label>
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Margin="2,0,8,0" Content="条"></Label>
+
+            <Border BorderBrush="{DynamicResource Nb.Auxiliary.BorderBrush}" BorderThickness="1" Width="1" Margin="8"></Border>
+
+            <nb:NbComboBox x:Name="PageSizeCb" Width="Auto" Height="24" SelectedIndex="0" SelectionChanged="PageSizeCb_SelectionChanged">
+                <nb:NbComboBoxItem Content="10条页" Tag="10"></nb:NbComboBoxItem>
+                <nb:NbComboBoxItem Content="20条页" Tag="20"></nb:NbComboBoxItem>
+                <nb:NbComboBoxItem Content="50条页" Tag="50"></nb:NbComboBoxItem>
+                <nb:NbComboBoxItem Content="100条页" Tag="100"></nb:NbComboBoxItem>
+            </nb:NbComboBox>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Margin="0,0,0,0" Content="跳至第"></Label>
+            <nb:NbTextBox x:Name="GoPageNoTxt" InputCheck="Int" InputMethod.IsInputMethodEnabled="False" MinValue="1" MaxValue="999999999" Height="24" Width="48" HorizontalContentAlignment="Center" Margin="3,0,3,0" Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:NbPageBar}}, Path=GoPageNo}"></nb:NbTextBox>
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Margin="0,0,8,0" Content="页"></Label>
+            <nb:NbButton x:Name="GoPageButton" Height="24" Width="35" Padding="5,0,5,0" Margin="0,0,8,0" Content="确定" Click="GoPageButton_Click"
+                         Style="{DynamicResource NormalButtonStyle}"></nb:NbButton>
+            <Border BorderBrush="{DynamicResource Nb.Auxiliary.BorderBrush}" BorderThickness="1" Width="1" Margin="8"></Border>
+            <nb:NbButton x:Name="FirstPageButton" Height="24" Width="35" Padding="5,0,5,0" Margin="0,0,8,0" Content="首页" Click="FirstPageButton_Click"
+                         Style="{DynamicResource NormalButtonStyle}"></nb:NbButton>
+            <nb:NbButton x:Name="UpPageButton" Height="24" Width="45" Padding="5,0,5,0" Margin="0,0,8,0" Content="上一页" Click="UpPageButton_Click"
+                         Style="{DynamicResource NormalButtonStyle}"></nb:NbButton>
+            <nb:NbButton x:Name="NextPageButton" Height="24" Width="45" Padding="5,0,5,0" Margin="0,0,8,0" Content="下一页" Click="NextPageButton_Click"
+                         Style="{DynamicResource NormalButtonStyle}"></nb:NbButton>
+            <nb:NbButton x:Name="LastPageButton" Height="24" Width="35" Padding="5,0,5,0" Margin="0,0,8,0" Content="末页" Click="LastPageButton_Click"
+                         Style="{DynamicResource NormalButtonStyle}"></nb:NbButton>
+        </StackPanel>
+    </Grid>
+</UserControl>

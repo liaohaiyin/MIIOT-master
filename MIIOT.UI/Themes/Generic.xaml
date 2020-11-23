@@ -1,0 +1,20 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/LoadingBox.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/NbWindow.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/NbSysButton.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/NbNavMenuItem.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/NbButton.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/NbTabControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/NmTabControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/NbMenuTabControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/NbTextBox.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/NbComboBox.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/NbCheckBox.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/NbLabel.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/NbSlider.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/NwButton.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

@@ -1,0 +1,29 @@
+﻿<local:BaseConnectControl x:Class="MIIOT.Control.TCPServerCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:MIIOT.Control" xmlns:controls="clr-namespace:MIIOT.Controls;assembly=MIIOT.Controls"
+             mc:Ignorable="d" >
+    <Grid Margin="10">
+        <md:Card x:Name="card"  Width="200" FontSize="18" >
+            <StackPanel Margin="10">
+                <TextBlock Margin="5 0 5 5" Text="{Binding MacPara.Description}"></TextBlock>
+                <controls:TitleTextBox Title="    IP:" Grid.Row="1" Text="{Binding MacPara.COM}"/>
+                <controls:TitleTextBox Title="Port:" Grid.Row="1" Text="{Binding MacPara.BaudRate}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <controls:TitleTextBox Title="长度:" Grid.Row="1" Text="{Binding MacPara.Para1}" Margin="5 5 0 5"/>
+                    <controls:TitleTextBox Grid.Column="1" Title="间隔:" Grid.Row="1" Text="{Binding MacPara.Para2}" Margin="0 5 5 5"/>
+                </Grid>
+            </StackPanel>
+        </md:Card>
+        <Button Margin="190 -12 -12 0" x:Name="btnDelete" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btnDelete_Click"  Height="24" Width="24"  Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
+            <md:PackIcon Kind="Close" />
+        </Button>
+    </Grid>
+</local:BaseConnectControl>

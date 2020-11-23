@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://www.ebigcn.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="EbeitXmlWebService" targetNamespace="http://www.ebigcn.com" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://61.140.16.205:2423/fes/EbeitXmlWebService?xsd=1" namespace="http://www.ebigcn.com" />
+    </xsd:schema>
+  </types>
+  <message name="normalService">
+    <part name="spid" type="xsd:string" />
+    <part name="username" type="xsd:string" />
+    <part name="password" type="xsd:string" />
+    <part name="xml" type="xsd:string" />
+  </message>
+  <message name="normalServiceResponse">
+    <part name="return" type="xsd:string" />
+  </message>
+  <message name="setWSPacketService">
+    <part name="arg0" type="tns:wsPacketService" />
+  </message>
+  <message name="setWSPacketServiceResponse" />
+  <portType name="EbeitXmlWebService">
+    <operation name="normalService" parameterOrder="spid username password xml">
+      <input wsam:Action="http://www.ebigcn.com/EbeitXmlWebService/normalServiceRequest" message="tns:normalService" />
+      <output wsam:Action="http://www.ebigcn.com/EbeitXmlWebService/normalServiceResponse" message="tns:normalServiceResponse" />
+    </operation>
+    <operation name="setWSPacketService">
+      <input wsam:Action="http://www.ebigcn.com/EbeitXmlWebService/setWSPacketServiceRequest" message="tns:setWSPacketService" />
+      <output wsam:Action="http://www.ebigcn.com/EbeitXmlWebService/setWSPacketServiceResponse" message="tns:setWSPacketServiceResponse" />
+    </operation>
+  </portType>
+  <binding name="EbeitXmlWebServicePortBinding" type="tns:EbeitXmlWebService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <operation name="normalService">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://www.ebigcn.com" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://www.ebigcn.com" />
+      </output>
+    </operation>
+    <operation name="setWSPacketService">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://www.ebigcn.com" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://www.ebigcn.com" />
+      </output>
+    </operation>
+  </binding>
+  <service name="EbeitXmlWebService">
+    <port name="EbeitXmlWebServicePort" binding="tns:EbeitXmlWebServicePortBinding">
+      <soap:address location="http://61.140.16.205:2423/fes/EbeitXmlWebService" />
+    </port>
+  </service>
+</definitions>

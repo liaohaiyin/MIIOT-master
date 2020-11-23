@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="http://www.ebigcn.com" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="wsPacketService">
+    <xs:sequence />
+  </xs:complexType>
+</xs:schema>

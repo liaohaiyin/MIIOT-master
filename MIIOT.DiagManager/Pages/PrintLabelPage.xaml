@@ -1,0 +1,128 @@
+﻿<nb:NbPage x:Class="MIIOT.DiagManager.Pages.PrintLabelPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MIIOT.DiagManager.Pages"
+      xmlns:nb="clr-namespace:MIIOT.UI.Controls;assembly=MIIOT.UI"      
+      xmlns:nbex="clr-namespace:MIIOT.UI.ControlEx;assembly=MIIOT.UI"
+      xmlns:core="clr-namespace:MIIOT.DiagManager.Core;assembly=MIIOT.DiagManager.Core"
+      mc:Ignorable="d" 
+      d:DesignHeight="450"
+      Title="PrintLabelPage"
+      d:DesignWidth="1024"
+      IsWaiting="{Binding IsWaiting}"
+      TipText="{Binding TipText}">
+
+    <Grid Background="{DynamicResource Nb.Auxiliary.Background}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition MinHeight="150" Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="48"/>
+        </Grid.RowDefinitions>
+        <StackPanel
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Grid.Row="0">
+            <Label 
+                Content="请将需要重打标签的商品放入复核台中或扫描商品标签二维码"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                FontFamily="微软雅黑"
+                FontSize="{StaticResource LableFontSize24}"
+                FontWeight="Bold"/>
+        </StackPanel>
+        <Border
+            Grid.Row="1"
+            BorderBrush="{DynamicResource Nb.Auxiliary.BorderBrush}"
+            BorderThickness="0 0 0 2">
+            <StackPanel
+                Margin="0 10 0 0"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel
+                        Grid.Row="0"
+                        Margin="10 0 0 0"
+                        Orientation="Horizontal">
+                        <nb:NbTextBox
+                            x:Name="txtsearch"
+                            Style="{DynamicResource ScanTextBlockStyle}"
+                            Margin="0 2 0 1" 
+                            Placeholder="请扫描或输入单号"
+                            Text="{Binding SearchOrderNo}"
+                            core:EnterKeyHelpers.EnterKeyCommand="{Binding SearchCommand}"
+                            core:EnterKeyHelpers.EnterKeyCommandParam="{Binding Path=SearchOrderNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <Label
+                            Content="{Binding Path=SearchNoHint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            VerticalContentAlignment="Center"
+                            FontSize="{DynamicResource LableFontSize24}"
+                            Foreground="{DynamicResource Nb.TipText.Foreground}"/>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="1"
+                        Margin="0 10 0 0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <nb:NbButton Grid.Row="1" Margin="0 0 0 5" Content="重打标签" Icon="{DynamicResource Icon-Export}" Style="{DynamicResource BarToolButtonStyle}"></nb:NbButton>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+        
+        <DataGrid   
+            Grid.Row="2"                
+            MinColumnWidth="108"
+            Margin="5 10 0 0"
+            Style="{DynamicResource NbDataGrid}"
+            ItemsSource="{Binding Items}"
+            x:Name="dataAccept">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding ProductNo}"
+                    Header="单品码" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding ProductNo}"
+                    Header="商品编码" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding ProductName}"
+                    Header="商品名称" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding ProductType}"
+                    Header="商品规格" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding FactoryName}"
+                    Header="生产厂家" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Unit}"
+                    Header="单位" />             
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding BatchNo}"
+                    Header="批号" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding CreateDate, Converter={StaticResource DateStringCv}}"
+                    Header="生产日期" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding VerifyDate, Converter={StaticResource DateStringCv}}"
+                    Header="有效期" />
+            </DataGrid.Columns>     
+        </DataGrid>
+        <nbex:NbPageBar Grid.Row="3" PageNo="{Binding PageNo}" PageSize="{Binding PageSize}" TotalPages="{Binding TotalPages}" TotalItems="{Binding TotalItems}" Command="{Binding GoPage}"></nbex:NbPageBar>
+    </Grid>
+</nb:NbPage>

@@ -1,0 +1,193 @@
+﻿<UserControl x:Class="MIIOT.ORCart.MainView.FollowAccountView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MIIOT.ORCart.MainView"
+             xmlns:controls="clr-namespace:MIIOT.Controls;assembly=MIIOT.Controls" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:controls1="clr-namespace:MIIOT.ORCart.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1000">
+    <UserControl.Resources>
+
+        <controls1:CheckBoxIcoConverter x:Key="CheckBoxIcoConverter"/>
+        <controls1:SplitOrderConverter x:Key="SplitOrderConverter"/>
+        <controls1:QtyEditVConverter x:Key="QtyEditVConverter"/>
+        <controls1:QtyEditHConverter x:Key="QtyEditHConverter"/>
+    </UserControl.Resources>
+    <Grid x:Name="grid" >
+        <Border  Background="White" Tag="跟台清台" >
+            <Grid Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="Foreground" Value="{StaticResource PrimaryForegroudBrush}"/>
+                        <Setter Property="Margin" Value="0 5"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Border BorderBrush="{StaticResource PrimaryForegroudBrush}" BorderThickness="0 1 0 1" Margin="15 20 15 0">
+                    <Grid Margin="50 0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition MinWidth="180"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition MinWidth="180"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition MinWidth="180"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="18"/>
+                                <Setter Property="Margin" Value="5"/>
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryForegroudBrush}"/>
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock>手术名称：</TextBlock>
+                        <TextBlock Grid.Column="1"  Text="{Binding SelectPubSurgery.surgery_name}"></TextBlock>
+
+                        <TextBlock Grid.Column="2" >手术编号：</TextBlock>
+                        <TextBlock Grid.Column="3"  Text="{Binding SelectPubSurgery.surgery_code}"></TextBlock>
+
+                        <TextBlock Grid.Column="4">手术间：</TextBlock>
+                        <TextBlock Grid.Column="5"   Text="{Binding SelectPubSurgery.room_name}"></TextBlock>
+
+                        <TextBlock Grid.Row="1" >主刀医生：</TextBlock>
+                        <TextBlock Grid.Row="1" Grid.Column="1"  Text="{Binding SelectPubSurgery.doctor}"></TextBlock>
+
+                        <TextBlock Grid.Row="1" Grid.Column="2" >患者名称：</TextBlock>
+                        <TextBlock Grid.Row="1" Grid.Column="3"   Text="{Binding SelectPubSurgery.patient}"></TextBlock>
+
+                    </Grid>
+                </Border>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button  Grid.Column="2" Margin="10" Width="120" FontSize="20"  HorizontalAlignment="Left" Height="50" Click="btnBack_Click">返回</Button>
+                    <Button  Grid.Column="2" Margin="10" Width="120"  HorizontalAlignment="Left"  FontSize="20" Height="50" Click="btnKeep_Click">确认记账</Button>
+                    <Button  Grid.Column="2" Margin="10" Width="120"  HorizontalAlignment="Left"  FontSize="20" Height="50" Click="btnUnKeep_Click">确认销账</Button>
+                </StackPanel>
+                <Grid Grid.Row="2"  Margin="10 0 10 10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Border  Margin="0 5 5 0" Padding="10 0" BorderBrush="{StaticResource PrimaryHueMidBrush}" BorderThickness="2" HorizontalAlignment="Left">
+                        <TextBlock FontSize="18" Text="高值耗材"></TextBlock>
+                    </Border>
+                    <DataGrid x:Name="girdClear" Grid.Row="1"   Margin="0 0 5 5" 
+                  ItemsSource="{Binding Clears,Mode=TwoWay}" SelectionChanged="girdClear_SelectionChanged"
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="4" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Disabled"
+                  CanUserAddRows="False" IsReadOnly="True"  HorizontalScrollBarVisibility="Disabled" 
+                  AutoGenerateColumns="False" >
+                        <DataGrid.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource  MaterialDesignDataGridCell}">
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryForegroudBrush}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding qty}" Value="99999">
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.CellStyle>
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                                <Setter Property="Background" Value="{StaticResource PrimaryHueMidBrush}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="17"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Resources>
+                            <controls1:CanChangeUnfreeConverter x:Key="CanChangeUnfreeConverter"/>
+                            <controls1:BindingProxy x:Key="proxy" Data="{Binding}" />
+                            <controls:FalseVisible x:Key="FalseVisible"/>
+                            <controls:TrueVisible x:Key="TrueVisible"/>
+                            <DataTemplate x:Key="goods_no">
+                                <TextBlock  Text="{Binding goods_no,Mode=TwoWay}"  TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                            </DataTemplate>
+                            <DataTemplate x:Key="goods_name">
+                                <TextBlock  Text="{Binding goods_name,Mode=TwoWay}" TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                            </DataTemplate>
+                            <DataTemplate x:Key="goods_spec">
+                                <TextBlock  Text="{Binding goods_spec,Mode=TwoWay}"  TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                            </DataTemplate>
+                            <DataTemplate x:Key="factory_name">
+                                <TextBlock  Text="{Binding factory_name,Mode=TwoWay}" TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                            </DataTemplate>
+                            <DataTemplate x:Key="unit">
+                                <TextBlock  Text="{Binding unit,Mode=TwoWay}" TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                            </DataTemplate>
+                            <DataTemplate x:Key="qty">
+                                <TextBlock  Text="{Binding qty,Mode=TwoWay}" TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                            </DataTemplate>
+                            <DataTemplate x:Key="price">
+                                <TextBlock  Text="{Binding price,Mode=TwoWay}" TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                            </DataTemplate>
+                            <DataTemplate x:Key="totalprice">
+                                <TextBlock  Text="{Binding ExtotalPrice}" TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                            </DataTemplate>
+
+                            <DataTemplate x:Key="isPay">
+                                <ToggleButton IsChecked="{Binding unfree}"  IsHitTestVisible="{Binding goods_type,Converter={StaticResource CanChangeUnfreeConverter}}"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Height="auto"/>
+                            </DataTemplate>
+                            <DataTemplate x:Key="txtqty">
+                                <Border BorderBrush="{StaticResource PrimaryForegroudBrush}" BorderThickness="1">
+                                    <TextBox Tag="{Binding}" Text="{Binding qty,Mode=TwoWay}"  materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                                </Border>
+                            </DataTemplate>
+                            <DataTemplate x:Key="btnDelete">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Margin="3" Tag="{Binding}" Content="删除"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18"   Background="Transparent"  Foreground="{StaticResource PrimaryForegroudBrush}" Click="btndelClear_Click">
+                                    </Button>
+                                    <Button Margin="3" Tag="{Binding}"  VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="{Binding goods_type,Converter={StaticResource SplitOrderConverter} }" FontSize="20"  Height="30" Width="30" BorderThickness="0"  Click="btnSplit_Click">
+                                       拆单
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                            <DataTemplate x:Key="btnchk">
+                                <CheckBox IsChecked="{Binding Selected}"/>
+                            </DataTemplate>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn Header="选择" >
+                                <DataGridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Click="CheckBoxHeader_Click"  Style="{StaticResource bigCheckBox}" ></CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.HeaderTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <materialDesign:PackIcon  VerticalAlignment="Center" Foreground="{StaticResource PrimaryHueMidBrush}" Kind="{Binding Selected,Converter={StaticResource CheckBoxIcoConverter}}" Width="20" Height="20"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn CellTemplate="{StaticResource goods_no}" CanUserSort="True"  Header="商品编码" Width="*" />
+                            <DataGridTemplateColumn CellTemplate="{StaticResource goods_name}" Header="商品名称" Width="*" />
+                            <DataGridTemplateColumn CellTemplate="{StaticResource goods_spec}" Header="商品规格" Width="*" />
+                            <DataGridTemplateColumn CellTemplate="{StaticResource factory_name}" Header="生产厂家" Width="*" />
+                            <DataGridTemplateColumn CellTemplate="{StaticResource unit}" Header="单位" Width="auto" />
+                            <DataGridTemplateColumn CellTemplate="{StaticResource isPay}" Header="是否收费" Width="auto" />
+                            <DataGridTemplateColumn CellTemplate="{StaticResource qty}"  Visibility="{Binding Data, Source={StaticResource proxy}, Converter={StaticResource QtyEditVConverter}}"  Header="数量"  Width=".5*" />
+                            <DataGridTemplateColumn CellTemplate="{StaticResource txtqty}" Visibility="{Binding Data, Source={StaticResource proxy},Converter= {StaticResource QtyEditHConverter}}" Header="数量"  Width=".5*" />
+                            <DataGridTemplateColumn CellTemplate="{StaticResource price}" Header="单价"  Width=".5*" />
+                            <DataGridTemplateColumn CellTemplate="{StaticResource totalprice}" Header="总价"  Width=".5*" />
+                            <DataGridTemplateColumn CellTemplate="{StaticResource btnDelete}" Header="删除" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+
+        </Border>
+    </Grid>
+</UserControl>

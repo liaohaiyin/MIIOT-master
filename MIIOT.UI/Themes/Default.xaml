@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/Base.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/Icon.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/PasswordBox.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Font/FontSize.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/MIIOT.UI;Component/Styles/Default/NbDataGrid.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

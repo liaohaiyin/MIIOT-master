@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="MIIOT.ORCart.Controls.UserCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MIIOT.ORCart.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             mc:Ignorable="d" 
+             >
+    <Border BorderBrush="#d3d3d3" BorderThickness="1 1 0 1" Background="White">
+        <Grid Height="150"  >
+            <Grid.Resources>
+
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Background="{StaticResource PrimaryHueMidBrush}" Grid.Column="2" Grid.RowSpan="2" Width="10" Margin="50 0 0 0"></Border>
+
+            <TextBlock FontSize="20" Margin="10" VerticalAlignment="Bottom" Foreground="{StaticResource PrimaryHueMidBrush}" MinWidth="150" Text="{Binding User.display_name}"></TextBlock>
+            <TextBlock FontSize="20" Margin="10" VerticalAlignment="Top" Grid.Row="1" Text="{Binding User.user_name}"></TextBlock>
+            <StackPanel Margin="20 0 0 0" Grid.Column="1"  Grid.RowSpan="2"  VerticalAlignment="Center" Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style TargetType="materialDesign:Card">
+                        <Setter Property="UniformCornerRadius" Value="50"/>
+                        <Setter Property="Height" Value="104"/>
+                        <Setter Property="Width" Value="120"/>
+                        <Setter Property="Margin" Value="10 3"/>
+                    </Style>
+                    <Style TargetType="Image">
+                        <Setter Property="Height" Value="70"/>
+                        <Setter Property="Width" Value="70"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Grid VerticalAlignment="Center" PreviewMouseLeftButtonDown="btnidcard_click"  Cursor="Hand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <materialDesign:Card >
+                        <Image x:Name="imgidcard" Source="/MIIOT.ORCart;component/Images/idcard_null.png" Stretch="None"></Image>
+                    </materialDesign:Card>
+                    <TextBlock x:Name="txtidcardnull" Grid.Row="1" HorizontalAlignment="Center"  >卡片未绑定</TextBlock>
+                    <TextBlock x:Name="txtidcard" Visibility="Collapsed" Foreground="{StaticResource PrimaryHueMidBrush}" Grid.Row="1" HorizontalAlignment="Center"  >卡片已绑定</TextBlock>
+                </Grid>
+                <Grid VerticalAlignment="Center" PreviewMouseLeftButtonDown="btnidface_click" Cursor="Hand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <materialDesign:Card x:Name="card">
+                    <Image x:Name="imgidface" Height="{Binding ElementName=card, Path=ActualHeight}" Width="{Binding ElementName=card, Path=ActualWidth}" Stretch="None"  Source="/MIIOT.ORCart;component/Images/iface_null.png"></Image>
+                    </materialDesign:Card>
+                    <TextBlock x:Name="txtidfacenull" Grid.Row="1" HorizontalAlignment="Center"  >人脸特征未绑定</TextBlock>
+                    <TextBlock x:Name="txtidface" Visibility="Collapsed"  Foreground="{StaticResource PrimaryHueMidBrush}" Grid.Row="1" HorizontalAlignment="Center"  >人脸特征已绑定</TextBlock>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

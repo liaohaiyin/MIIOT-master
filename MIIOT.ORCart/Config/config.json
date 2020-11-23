@@ -1,0 +1,69 @@
+{
+
+  "CartNo": "Cart01",
+  "CartName": "1号小车",
+
+  "UserNameCache": "admin",
+  "//webSocket连接串与配置机器名称": "",
+  "WSSocket": "ws://61.140.16.205:2458/work-station-dsc/websocket",
+  "WSSocketClientName": "testname",
+
+
+  "//复核台读卡器串口": "",
+  "CardReaderPortName": "COM6",
+
+  "//复核台串口": "",
+  "PlatformReaderPortName": "COM8",
+
+  "//本库ID和Name": "",
+  "WarehouseID": "12",
+  "WarehouseName": "试剂中心库",
+
+  "//医院名称": "",
+  "HospitalName": "xx**x人民医院",
+
+  "MasterName": "M1",
+  "SlaveName": "S1",
+
+  "//登录超时": "",
+  "LoginTimeOut": "20",
+
+  "DBStr": "Data Source=127.0.0.1;Initial Catalog=sfms;Persist Security Info=True;User ID=root;Password=root",
+
+  "//HttpHost": "",
+  "Host": "http://192.168.1.13:2499/dp",
+
+  "AutoSync": "true",
+
+  "//Router": "",
+  "登录": "/login/c_mit/validate",
+  "退库原因": "/query/c_mit/backReason",
+  "退库目标库房": "/query/c_mit/backStorehouse",
+  "手术间信息": "/query/c_mit/surgeryRoom",
+  "部门信息": "/query/c_mit/departmentInfo",
+  "库房信息": "/query/c_mit/cabinetInfo",
+  "手术单信息": "/query/c_mit/surgery",
+  "术前领用单信息": "/query/c_mit/receive",
+  "库存信息": "/query/c_mit/singleStock",
+  "商品库房策略": "/query/c_mit/goodsStorehouse",
+  "商品信息": "/query/c_mit/goods",
+  "补货单信息": "/query/c_mit/replenish",
+  "完成": "",
+  "单品码信息": "/query/c_mit/singlecode",
+  "异常单品码信息": "/query/c_mit/exceptionSinglecode",
+
+  "手术清台信息": "/query/c_mit/register",
+  "跟台清台信息": "/query/c_mit/register",
+  "效期预警信息": "/query/c_mit/validDateStock",
+
+  "补货": "/commit/c_mit/replenish",
+  "领用": "/commit/c_mit/receive",
+  "领退": "/commit/c_mit/recback",
+  "退库": "/commit/c_mit/turnback",
+  "报损报溢": "/commit/c_mit/ofls",
+  "盘点数据行": "/commit/c_mit/checks",
+  "进销存统计": "/commit/c_mit/stockInSell",
+  "申领": "/commit/c_mit/applyOutStock",
+  "手术记账": "/commit/c_mit/surgeryBilling",
+  "跟台信息": "/query/c_mit/stageinfodtl"
+}

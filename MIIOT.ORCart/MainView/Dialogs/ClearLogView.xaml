@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="MIIOT.ORCart.MainView.Dialogs.ClearLogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MIIOT.ORCart.MainView.Dialogs"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib" 
+             xmlns:controls="clr-namespace:MIIOT.ORCart.Controls"
+             mc:Ignorable="d" >
+    <Grid Height="500" Width="800" Margin="30">
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="18"/>
+            </Style>
+            <controls:ShowTypeConverter x:Key="ShowTypeConverter"/>
+            <controls:ShowTypeVisibilyConverter x:Key="ShowTypeVisibilyConverter"/>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.ColumnSpan="4" Margin="0 20" VerticalAlignment="Center"  HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBlock  FontSize="30" FontWeight="Bold">操作历史</TextBlock>
+        </StackPanel>
+        <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Grid.Column="3" Margin="5 -25 -25 0" Style="{StaticResource BaseMetroWindowButtonStyle}" 
+                VerticalAlignment="Top" HorizontalAlignment="Right">
+            <Button.CommandParameter>
+                <system:Boolean>False</system:Boolean>
+            </Button.CommandParameter>
+            <materialDesign:PackIcon Kind="Close"  Width="40" Height="40"/>
+        </Button>
+        <TextBlock Grid.Row="1" Margin="8">商品名称：</TextBlock>
+        <TextBlock Grid.Row="2" Margin="8">商品编码：</TextBlock>
+        <TextBlock Margin="10 0 0 0" Grid.Row="1" Grid.Column="1" x:Name="txtname" TextWrapping="Wrap" TextTrimming="WordEllipsis"></TextBlock>
+        <TextBlock Margin="10 0 0 0" Grid.Row="2" Grid.Column="1" x:Name="txtno" TextWrapping="Wrap" TextTrimming="WordEllipsis"></TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="2"  Margin="10">商品厂家：</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="2"  Margin="10">商品规格：</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="3" x:Name="txtfac" TextWrapping="Wrap" TextTrimming="WordEllipsis"></TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="3" x:Name="txtspec" TextWrapping="Wrap" TextTrimming="WordEllipsis"></TextBlock>
+        <DataGrid  x:Name="gridStock"  Grid.Row="4"  Grid.ColumnSpan="6" Margin="5"  ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                  ItemsSource="{Binding Clear_Logs,Mode=TwoWay}"  ScrollViewer.PanningMode="Both" CanUserSortColumns="True"
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="4"
+                  CanUserAddRows="False" IsReadOnly="True"  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  SelectedValue="{Binding SelecTimeDataViewData}" 
+                  AutoGenerateColumns="False" >
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource  MaterialDesignDataGridCell}">
+                    <Setter Property="Foreground" Value="{StaticResource PrimaryForegroudBrush}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsNew}" Value="true">
+                            <Setter Property="Foreground" Value="Red" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                    <Setter Property="Background" Value="{StaticResource PrimaryHueMidBrush}"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Height" Value="60"/>
+                    <Setter Property="FontSize" Value="17"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+            <DataGrid.Resources>
+                <DataTemplate x:Key="index">
+                    <TextBlock  Text="{Binding index,Mode=TwoWay}" TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                </DataTemplate>
+                <DataTemplate x:Key="goods_no">
+                    <TextBlock Text="{Binding goods_no,Mode=TwoWay}" TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                </DataTemplate>
+                <DataTemplate x:Key="goods_name">
+                    <TextBlock  Text="{Binding goods_name,Mode=TwoWay}" TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                </DataTemplate>
+                <DataTemplate x:Key="goods_spec">
+                    <TextBlock  Text="{Binding goods_spec,Mode=TwoWay}" TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                </DataTemplate>
+                <DataTemplate x:Key="factory_name">
+                    <TextBlock  Text="{Binding factory_name,Mode=TwoWay}" TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                </DataTemplate>
+                <DataTemplate x:Key="unit">
+                    <TextBlock  Text="{Binding unit,Mode=TwoWay}" TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                </DataTemplate>
+                <DataTemplate x:Key="plot_no">
+                    <TextBlock  Text="{Binding plot_no,Mode=TwoWay}" TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                </DataTemplate>
+                <DataTemplate x:Key="validity_date">
+                    <TextBlock  Text="{Binding validity_date,Mode=TwoWay}" TextTrimming="WordEllipsis" VerticalAlignment="Center" FontSize="20" Height="auto"/>
+                </DataTemplate>
+                <Style x:Key="datagridCell1" TargetType="TextBlock">
+                    <Setter Property="TextAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="Foreground" Value="{StaticResource PrimaryForegroudBrush}"/>
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding creater}" ElementStyle="{StaticResource datagridCell}" CanUserSort="True" Header="操作人" Width="*" />
+                <DataGridTextColumn Binding="{Binding creat_time,StringFormat='yyyy-MM-dd HH:mm:ss'}"  ElementStyle="{StaticResource datagridCell1}" CanUserSort="True" Header="操作时间" MinWidth="120" Width="*" />
+                <DataGridTextColumn Binding="{Binding opt_type}" ElementStyle="{StaticResource datagridCell}" CanUserSort="True" Header="操作类型" Width="*" />
+                <DataGridTextColumn Binding="{Binding pay_tag}" ElementStyle="{StaticResource datagridCell}" CanUserSort="True" Header="是否收费" Width="*" />
+                <DataGridTextColumn Binding="{Binding qty}" ElementStyle="{StaticResource datagridCell}" CanUserSort="True" Header="数量" Width="*" />
+                <DataGridTextColumn Binding="{Binding total_price}" ElementStyle="{StaticResource datagridCell}" CanUserSort="True" Header="总价" Width="*" />
+                <DataGridTextColumn Binding="{Binding single_code}" ElementStyle="{StaticResource datagridCell}" CanUserSort="True" Header="单品码" Width="*" />
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button  Grid.Row="5" Grid.ColumnSpan="4" Height="60" Width="120" FontSize="20"  Margin="15 5"   Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" >
+            <Button.CommandParameter>
+                <system:Boolean>True</system:Boolean>
+            </Button.CommandParameter> 知道了
+        </Button>
+    </Grid>
+</UserControl>
