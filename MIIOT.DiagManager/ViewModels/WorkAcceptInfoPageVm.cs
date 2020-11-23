@@ -10,8 +10,12 @@ using MIIOT.UI;
 using MIIOT.UI.ControlEx;
 using MIIOT.UI.Controls;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -86,10 +90,22 @@ namespace MIIOT.DiagManager.ViewModels
         #region 初始化页面
         public WorkAcceptInfoPage Vmpage { get; set; }
 
+        public string PrintNum { get; } = GetSetting("PrintNum");
+
         public WorkAcceptInfoPageVm(NbPage page)
         {
             this.Vmpage = page as WorkAcceptInfoPage;
+            this.Items.CollectionChanged += (sender, e) =>
+            {
+                if (e.Action == NotifyCollectionChangedAction.Add)
+                {
+                    this._hasCollectItem = true;
+                }
+            };
+            this.Items.Add(new pub_accept_dtl { ID = 1273155039877791799, organ_id = 1, accept_id = 1273155039877791799, source_type = 0, source_id = 1273155039877791799, goods_name = "纤维连接蛋白检测试剂盒1" });
+            
         }
+
         #endregion
 
         #region 表格绑定属性
@@ -105,23 +121,6 @@ namespace MIIOT.DiagManager.ViewModels
             {
                 this._items = value;
                 OnPropertyChanged(nameof(Items));
-            }
-        }
-        #endregion
-
-        #region 打印数量
-        private ObservableCollection<LabelInfo> _labelItems = new ObservableCollection<LabelInfo>();
-
-        public ObservableCollection<LabelInfo> labelItems
-        {
-            get
-            {
-                return this._labelItems;
-            }
-            set
-            {
-                this._labelItems = value;
-                OnPropertyChanged(nameof(labelItems));
             }
         }
         #endregion
@@ -221,6 +220,14 @@ namespace MIIOT.DiagManager.ViewModels
         {
             get { return this._hasOverReceipt; }
             set { _hasOverReceipt = value; OnPropertyChanged(nameof(HasOverReceipt)); }
+        }
+
+        protected bool _hasCollectItem = false;
+
+        public virtual bool HasCollectItem
+        {
+            get { return this._hasCollectItem; }
+            set { _hasCollectItem = value; OnPropertyChanged(nameof(HasCollectItem)); }
         }
         #endregion
 
@@ -457,31 +464,33 @@ namespace MIIOT.DiagManager.ViewModels
             {
                 return new DelegateCommand(obj =>
                 {
-                    if (this.Items == null && this.labelItems == null)
+                    if (this.Items == null)
                         return ;
                     Task.Run(() =>
                     {
                         IsWaiting = true;
                         foreach (var item in this.Items)
                         {
-                            var canPrintNum = (item?.delivery_qty ?? 0) - labelItems.Count;
+                            int? printNum = Convert.ToInt32(GetSetting("PrintNum"));
+                            var canPrintNum = (item?.delivery_qty ?? 0) - (printNum ?? 0);
                             if (canPrintNum == 0)
                                 return;
                             for (int i = 0; i < canPrintNum; i++)
                             {
-                                var labelText = "";
+                                string labelText = null;
                                 int res = PrintHelper.Init(item, out labelText);
-                                if (res != 0 || labelText.Length == 0)
+                                if (res != 0 || labelText == null)
                                 {
                                     string ErrMsg = AppRuntime.printer.GetErrMsg(res);
                                     NbMessageBox.Error($"打印机异常：{res}:" + ErrMsg);
+                                    IsWaiting = false;
                                     return;
                                 }
                                 AppRuntime.ExecuteOnUI(() =>
                                 {
-                                    labelItems.Add(new LabelInfo() { Content = labelText });
-                                    LiteDBHelper.Update(this.Items);
+                                    SetSetting("PrintNum", printNum.ToString());
                                 });
+                                printNum += 1;
                             }
                         }
                         IsWaiting = false;
@@ -490,5 +499,19 @@ namespace MIIOT.DiagManager.ViewModels
             }
         }
         #endregion
+
+        public static string GetSetting(string key)
+        {
+            return ConfigurationManager.AppSettings[key];
+        }
+
+        private void SetSetting(string key, string value)
+        {
+            Configuration configuration =
+                ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            configuration.AppSettings.Settings[key].Value = value;
+            configuration.Save(ConfigurationSaveMode.Full, true);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
     }
 }

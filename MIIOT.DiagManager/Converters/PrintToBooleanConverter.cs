@@ -14,13 +14,12 @@ namespace MIIOT.DiagManager.Converters
             if (value[0] == null && value.Length < 2)
                 return true;
             var list = value[0] as IEnumerable<pub_accept_dtl>;
-            var lstPrint = value[1] as IEnumerable<LabelInfo>;
-            if (list.Count() <= 0 || lstPrint.Count() <= 0)
+            int? printNum = int.Parse(value[1].ToString());
+            if (list.Count() <= 0 || printNum == null)
                 return true;
-            int count = list.Count() - lstPrint.Count();
+            int count = (list.ElementAt(0)?.delivery_qty ?? 0) - (printNum ?? 0);
             return (count == 0 ? false : true);
         }
-
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {

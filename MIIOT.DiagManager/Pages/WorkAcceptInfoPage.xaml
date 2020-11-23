@@ -209,7 +209,7 @@
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource PrintToBooleanCv}" >
                                 <Binding ElementName="dataAccept" Path="DataContext.Items" />
-                                <Binding Path="labelItems" />
+                                <Binding Path="PrintNum" />
                             </MultiBinding>
                         </Button.IsEnabled>
                     </nb:NbButton>
